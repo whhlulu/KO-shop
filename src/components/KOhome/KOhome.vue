@@ -11,13 +11,14 @@
             </mt-swipe-item>
         </mt-swipe>
         <news-flash :nav="$store.state.fenlei"></news-flash>
-        <hot-goods :data="$store.state.zixunList"></hot-goods>
+        <whole-order></whole-order>
     </div>
 </template>
 <script>
     import HomeHeader from './children/Header';
     import NewsFlash from './children/newsFlash';
     import hotGoods from './children/hotGoods';
+    import wholeOrder from '../KOpage/KOwhole.vue'
     export default {
         name: 'KOhome',
         data() {
@@ -69,6 +70,7 @@
             HomeHeader,
             NewsFlash,
             hotGoods,
+            wholeOrder,
         }
     }
 </script>

@@ -23,7 +23,7 @@
         methods: {
             link(index){
                 this.$router.push({
-                    path:'/brandList'
+                    path:`/KOlist/${index}`
                 });
             }
         }

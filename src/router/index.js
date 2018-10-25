@@ -74,7 +74,7 @@ const myTeam = r => require(['@/components/withdrawal/team'], r); //分销提现
 
 //资讯部分
 const KOHome = r => require(['@/components/KOhome/KOhome'], r); //主页
-const KOlist = r => require(['@/components/page/list'], r); //资讯列表
+const KOlist = r => require(['@/components/KOpage/KOlist'], r); //资讯列表
 
 Vue.use(Router)
 
@@ -108,6 +108,11 @@ const router = new Router({
                         component: person
                     }
                 ]
+            },
+            { //资讯列表
+                path: '/KOlist/:type',
+                name: 'KOlist',
+                component: KOlist
             },
             {
                 path: '/subject',
