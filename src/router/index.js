@@ -1,89 +1,177 @@
 import Vue from 'vue'
 import App from '@/App'
 import Router from 'vue-router'
-//商城部分
-const subject = r => require(['@/components/subject'], r); //商城入口
-const KOsubject = r => require(['@/components/KOsubject'], r); //资讯入口入口
-
-const Home = r => require(['@/components/home/home'], r); //主页
-const brandList = r => require(['@/components/brandMuseum/list'], r); //品牌列表
-const braDetails = r => require(['@/components/brandMuseum/listDetails'], r); //品牌详情页
-const latestProm = r => require(['@/components/latestProm/latestProm'], r); //最新促销
-const poopClearance = r => require(['@/components/poopClearance/index'], r); //尾货清仓
-const list = r => require(['@/components/page/list'], r); //商品列表
-const IntegralMall = r => require(['@/components/IntegralMall/index'], r); //积分商城-列表
-const myIntegral = r => require(['@/components/myWallet/myIntegral'], r); //我的积分
-const coupon = r => require(['@/components/page/coupon'], r); //优惠券
-const footprint = r => require(['@/components/page/footprint'], r); //我的足迹
-const myComment = r => require(['@/components/page/myComment'], r); //我的评论
-const feedback = r => require(['@/components/page/Feedback'], r); //意见反馈
-const myNews = r => require(['@/components/page/news-list'], r); //我的消息
-const newsConent = r => require(['@/components/page/news_content'], r); //我的消息-内容
-const invoice = r => require(['@/components/page/invoice'], r); //发票信息
-const repair = r => require(['@/components/page/returnRepair'], r); //退货返修
-const Search = r => require(['@/components/search/Search'], r); //首页热搜
-const LogoIn = r => require(['@/components/logoIn/logoIn'], r); //登录
-const Register = r => require(['@/components/logoIn/register'], r); //注册
-const Sms = r => require(['@/components/logoIn/SMSLogin'], r); //短信登录
-const bachWord = r => require(['@/components/logoIn/retrievePassword'], r); //找回密码
-const logoInBind = r => require(['@/components/logoIn/logoInBind'], r); //绑定
-const Notice = r => require(['@/components/page/Notice'], r); //公告
-const product = r => require(['@/components/page/product'], r); //商品详情
-const prTab = r => require(['@/components/page/children/tab'], r); //商品详情图
-const Cart = r => require(['@/components/page/Cart'], r); //购物车
-const Order = r => require(['@/components/page/confirmOrder'], r); //确认订单
-const cashier = r => require(['@/components/page/Cashier'], r); //收银台
-const Class = r => require(['@/components/home/classification'], r); //分类
-const person = r => require(['@/components/home/PersonalCenter'], r); //个人中心
-const seetin = r => require(['@/components/page/settings'], r); //账户设置
-const personalData = r => require(['@/components/page/personalData'], r); //个人资料
-const modifyPassword = r => require(['@/components/page/modifyPassword'], r); //修改密码
-const wholeOrder = r => require(['@/components/order/whole'], r); //订单入口
-const orderWrap = r => require(['@/components/order/order'], r); //订单
-const orderDetails = r => require(['@/components/order/orderDetails'], r); //订单详情
-const intOrder = r => require(['@/components/page/integral_order'], r); //积分订单
-const serviceBack = r => require(['@/components/page/serviceBack'], r); //申请售后
-const evaluate = r => require(['@/components/order/evaluate'], r); //商品评价
-const logis = r => require(['@/components/page/logistics'], r); //物流查询
-const myCollection = r => require(['@/components/page/myCollection'], r); //我的收藏
-const address = r => require(['@/components/page/address'], r); //收货地址
-const payment = r => require(['@/components/page/payment'], r); //付款
-const EdiAddress = r => require(['@/components/page/EditDelAddress'], r); //管理收货地址
-const newAddress = r => require(['@/components/page/newAddress'], r); //新建收货地址
-const customer = r => require(['@/components/page/customerService'], r); //客户服务
-const progress = r => require(['@/components/page/progressQuery'], r); //进度查询
-const reset = r => require(['@/components/logoIn/resetPassword'], r); //重置密码
-
-const theTeacher = r => require(['@/components/page/theTeacher'], r); //名师专栏
-const pickWeek = r => require(['@/components/page/pickweek'], r); //名师推荐
-const limitedbuy = r => require(['@/components/page/LimitedBuy'], r); //限时团购
-const phone = r => require(['@/components/page/ModifyPhone'], r); //修改手机号绑定
-const myWallet = r => require(['@/components/myWallet/myWallet'], r); //我的钱包
-const recharge = r => require(['@/components/myWallet/recharge'], r); //充值
-const withdr = r => require(['@/components/myWallet/Withdrawals'], r); //提现
-const shares = r => require(['@/components/myWallet/shares'], r); //我的股币
-
-const getInfo = r => require(['@/components/getInfo/getInfo'], r); //接受请求 --青菜新增
-const wxapppay = r => require(['@/components/getInfo/wxapppay'], r); //接受请求 
-
-const withdrawal = r => require(['@/components/withdrawal/withdrawal'], r); //分销金额
-const apply = r => require(['@/components/withdrawal/apply'], r); //分销提现
-const withdrawalList = r => require(['@/components/withdrawal/withdrawalList'], r); //分销提现列表 
-const withdrawalapply = r => require(['@/components/withdrawal/withdrawalapply'], r); //分销提现
-const myTeam = r => require(['@/components/withdrawal/team'], r); //分销提现
 
 //资讯部分
+const KOsubject = r => require(['@/components/KOsubject'], r); //资讯入口入口
 const KOHome = r => require(['@/components/KOhome/KOhome'], r); //主页
 const KOlist = r => require(['@/components/KOpage/KOlist'], r); //资讯列表
 
-Vue.use(Router)
+// 发票
+const documents = r => require(['@/components/documents/documents'], r); //发票
+const IncreaseDoc = r => require(['@/components/documents/IncreaseDoc'], r); //增资发票
+const ordinaryDoc = r => require(['@/components/documents/ordinaryDoc'], r); //普通发票
+const editIncrease = r => require(['@/components/documents/editIncrease'], r); //编辑增值发票
+const editOrdinary = r => require(['@/components/documents/editOrdinary'], r); //编辑普通发票
 
+// 品牌馆
+const brandList = r => require(['@/components/brandMuseum/list'], r); //品牌列表
+const braDetails = r => require(['@/components/brandMuseum/listDetails'], r); //品牌详情页
+const latestProm = r => require(['@/components/latestProm/latestProm'], r); //最新促销
+
+// 积分相关
+const IntegralMall = r => require(['@/components/IntegralMall/index'], r); //积分商城-列表
+const intOrder = r => require(['@/components/IntegralMall/integral_order'], r); //积分订单
+const integralDetail = r => require(['@/components/IntegralMall/integralDetail'], r); //积分商品详情
+
+//搜索
+const Search = r => require(['@/components/search/Search'], r); // 首页热搜
+const SearchStoreGoods = r => require(['@/components/search/SearchStoreGoods'], r); // 在店铺搜索商品
+
+// 购物车
+const Cart = r => require(['@/components/cart/Cart'], r); // 购物车
+const cartPackage = r => require(['@/components/cart/cartPackage'], r); // 购物车
+
+// 确认订单
+const Order = r => require(['@/components/confirmOrder/confirmOrder'], r); // 立即购买确认订单
+const confirmOrderIntegral = r => require(['@/components/confirmOrder/confirmOrderIntegral'], r); // 积分立即购买确认订单
+const cartOrder = r => require(['@/components/confirmOrder/cartOrder'], r); // 购物车确认订单
+const cartOrderPackage = r => require(['@/components/confirmOrder/cartOrderPackage'], r); // 购物车套餐确认订单
+const orderPackage = r => require(['@/components/confirmOrder/orderPackage'], r); // 套餐立即购买确认订单
+const comboOrder = r => require(['@/components/confirmOrder/comboOrder'], r) // 组合订单页
+
+// 支付
+const cashier = r => require(['@/components/payment/Cashier'], r); // 收银台
+const cashierPackage = r => require(['@/components/payment/CashierPackage'], r); // 套餐收银台
+const CashierOpenShopPay = r => require(['@/components/payment/CashierOpenShopPay'], r); // 店铺入驻收银台
+const CashierIntegral = r => require(['@/components/payment/CashierIntegral'], r); // 收银台
+
+// 支付结果
+const success = r => require(['@/components/paymentResult/success'], r); // 微信支付商品结果
+const success_alipay = r => require(['@/components/paymentResult/success_alipay'], r); // 支付宝支付商品结果
+const recharge_success = r => require(['@/components/paymentResult/recharge_success'], r); // 支付宝支付积分结果
+const recharge_wx_success = r => require(['@/components/paymentResult/recharge_wx_success'], r); // 微信支付积分结果
+const open_shop_alipay_success = r => require(['@/components/paymentResult/open_shop_alipay_success'], r); // 支付宝支付入驻结果
+const open_shop_wx_success = r => require(['@/components/paymentResult/open_shop_wx_success'], r); // 微信支付入驻结果
+
+// 订单
+const orderWrap = r => require(['@/components/order/order'], r); // 订单
+const orderList = r => require(['@/components/order/orderList'], r); // 订单
+const orderDetails = r => require(['@/components/order/orderDetails'], r); // 订单详情
+const progress = r => require(['@/components/order/progressQuery'], r); // 进度查询
+const serviceBack = r => require(['@/components/order/serviceBack'], r); // 申请售后
+const evaluate = r => require(['@/components/order/evaluate'], r); // 商品评价
+const logis = r => require(['@/components/order/logistics'], r); // 物流查询
+const repair = r => require(['@/components/order/returnRepair'], r); // 退货返修
+
+// 套餐订单
+const packageList = r => require(['@/components/packageOrder/packageOrderList'], r); // 套餐订单
+const packageOrderInfo = r => require(['@/components/packageOrder/packageOrderInfo'], r); // 套餐订单详细信息
+//我的钱包
+const myWallet = r => require(['@/components/myWallet/myWallet'], r); //我的钱包
+const recharge = r => require(['@/components/myWallet/recharge'], r); //充值
+const withdr = r => require(['@/components/myWallet/Withdrawals'], r); //提现
+const bankCash = r => require(['@/components/myWallet/bankCash'], r); //银行卡提现
+const alipayCash = r => require(['@/components/myWallet/alipayCash'], r); //支付宝提现
+const billingDetails = r => require(['@/components/myWallet/billingDetails'], r); //我的帐单详情
+const myIntegral = r => require(['@/components/myWallet/myIntegral'], r); //我的积分
+const pointsRules = r => require(['@/components/myWallet/pointsRules'], r) // 积分规则
+
+// 个人中心的菜单
+const subject = r => require(['@/components/subject'], r); // 主页-分类-购物车-个人中心入口
+const myCollection = r => require(['@/components/person/myCollection'], r); //我的收藏
+const myNews = r => require(['@/components/person/news_list'], r); //我的消息
+const newsConent = r => require(['@/components/person/news_content'], r); //我的消息-内容
+const newsDetail = r => require(['@/components/person/news_detail'], r); //我的消息-详情
+const feedback = r => require(['@/components/person/Feedback'], r); //意见反馈
+const message = r => require(['@/components/person/message'], r); //意见反馈
+const footprint = r => require(['@/components/person/footprint'], r); //我的足迹
+const myComment = r => require(['@/components/person/myComment'], r); //我的评论
+const customer = r => require(['@/components/person/customerService'], r); // 客户服务
+const invoice = r => require(['@/components/person/invoice'], r); // 发票信息
+
+// 地址管理
+const address = r => require(['@/components/person/address'], r); //收货地址
+const EdiAddress = r => require(['@/components/person/EditDelAddress'], r); //管理收货地址
+const newAddress = r => require(['@/components/person/newAddress'], r); //新建收货地址
+
+// 个人中心
+const person = r => require(['@/components/person/PersonalCenter'], r); //个人中心
+const personalData = r => require(['@/components/person/personalData'], r); //个人资料
+const seetin = r => require(['@/components/person/settings'], r); //账户设置
+const phone = r => require(['@/components/person/ModifyPhone'], r); //修改手机号绑定
+const modifyPassword = r => require(['@/components/person/modifyPassword'], r); //修改密码
+
+// 注册登录
+const LogIn = r => require(['@/components/logIn/logIn'], r); //登录
+const Register = r => require(['@/components/logIn/register'], r); //注册
+const Sms = r => require(['@/components/logIn/SMSLogin'], r); //短信登录
+const bachWord = r => require(['@/components/logIn/retrievePassword'], r); //忘记密码
+const logInBind = r => require(['@/components/logIn/logInBind'], r); //绑定
+const authLogin = r => require(['@/components/logIn/children/authLogin'], r); //授权成功
+const authError = r => require(['@/components/logIn/authError'], r); //授权失败
+const reset = r => require(['@/components/logIn/resetPassword'], r); // 重置密码
+const phoneVerify = r => require(['@/components/logIn/phoneVerify'], r); // 修改密码手机验证
+
+// 主页
+const Home = r => require(['@/components/home/home'], r); //主页
+const Class = r => require(['@/components/home/classification'], r); //分类
+
+// page页
+const prTab = r => require(['@/components/page/children/tab'], r); //商品详情图
+const answerDetails = r => require(['@/components/page/children/answerDetails'], r); //商品咨询详情
+const list = r => require(['@/components/page/list'], r); //商品列表
+const listHomeMore = r => require(['@/components/page/listHomeMore'], r); //商品列表
+const integralTab = r => require(['@/components/page/children/integralTab'], r); //商品详情图
+const listStoreGoods = r => require(['@/components/page/listStoreGoods'], r); // 在店铺搜索商品
+const payment = r => require(['@/components/page/payment'], r); // 付款
+const paymentinfo = r => require(['@/components/page/paymentinfo'], r); // 付款信息 不要删除
+const Notice = r => require(['@/components/page/Notice'], r); // 公告
+const noticeChild = r => require(['@/components/page/children/notice_child'], r); //公告查询
+
+// 商品详情页
+const withPackages = r => require(['@/components/product/withPackages'], r) // 套餐配件
+const product = r => require(['@/components/product/product'], r); //商品详情
+const coupon = r => require(['@/components/product/coupon'], r); //优惠券
+
+// 抢购
+const auction = r => require(['@/components/auction/auction'], r) // 抢购页面
+const auctionList = r => require(['@/components/auction/auctionList'], r) // 抢购页面
+
+// 个人入驻
+const checkProadd = r => require(['@/components/shopOpen/perShop/addInformation'], r); //填写个人资料
+const checkProIdInfor = r => require(['@/components/shopOpen/perShop/proId'], r); //填写身份证
+const checkProBankInfor = r => require(['@/components/shopOpen/perShop/proBank'], r); //填写银行打款信息（挪到个人资料处了）
+const checkProBusinessInfor = r => require(['@/components/shopOpen/perShop/Business'], r); //提交
+
+// 企业入驻
+const checkCompanyadd = r => require(['@/components/shopOpen/companyShop/addInformation'], r); //填写资料
+const companyPhotos = r => require(['@/components/shopOpen/companyShop/companyPhotos'], r); //营业执照
+const organizationPhotos = r => require(['@/components/shopOpen/companyShop/organizationPhotos'], r); //组织结构代码
+const checkCompanyBankInfor = r => require(['@/components/shopOpen/companyShop/checkCompanyBankInfor'], r); //组织结构代码
+const checkComBusinessInfor = r => require(['@/components/shopOpen/companyShop/Business'], r); //提交
+
+// 入驻协议
+const settledAgreement = r => require(['@/components/shopOpen/settledAgreement'], r); //入驻协议
+const settledAgreementSuc = r => require(['@/components/shopOpen/settledAgreementSuc'], r); //入驻成功
+const agreementDetial = r => require(['@/components/shopOpen/child/agreement_detial'], r); //入驻协议详情页面
+const shopOpen = r => require(['@/components/shopOpen/index'], r); // 我要开店
+const description = r => require(['@/components/shopOpen/description'], r); // 入驻须知
+
+// 店铺
+const shopHomeList = r => require(['@/components/shopCon/shopHomeList'], r); //首页进入的店铺列表
+const shopHome = r => require(['@/components/shopCon/shopHome'], r); // 店铺
+const shopDetails = r => require(['@/components/shopCon/shopDetails'], r); // 店铺详情
+const paperwork = r => require(['@/components/shopCon/paperwork'], r); // 证照信息
+const shoplist = r => require(['@/components/shopCon/shoplist'], r); //店铺列表
+
+Vue.use(Router)
 const router = new Router({
+    mode: 'history',
     routes: [{
         path: '/',
         component: App, //顶层路由，对应index.html
         children: [ //二级路由。对应App.vue
-            //地址为空时跳转home页面
             {
                 path: '',
                 redirect: '/KO'
@@ -115,6 +203,10 @@ const router = new Router({
                 component: KOlist
             },
             {
+                path: '',
+                redirect: '/subject'
+            },
+            {
                 path: '/subject',
                 name: 'subject',
                 component: subject,
@@ -123,77 +215,92 @@ const router = new Router({
                         path: '/subject',
                         redirect: '/home'
                     },
-                    { //主页
+                    { // 主页
                         path: '/home',
                         name: 'home',
                         component: Home
                     },
-                    { //分类
+                    { // 分类
                         path: '/class',
                         name: 'class',
                         component: Class
-                    },
-                    { //购物车
+                    }, { // 购物车
                         path: '/Cart',
                         name: 'Cart',
                         component: Cart
                     },
-                    { //个人中心
+                    { // 购物车
+                        path: '/cartPackage',
+                        name: 'cartPackage',
+                        component: cartPackage
+                    },
+                    { // 个人中心
                         path: '/person',
                         name: 'person',
                         component: person
                     }
                 ]
             },
-            { //登录
-                path: '/LogoIn',
-                name: 'LogoIn',
-                component: LogoIn
+            { // 登录
+                path: '/LogIn',
+                name: 'LogIn',
+                component: LogIn
             },
-            { //短信验证登录
+            {
+                path: '/authLogin/:auth_id',
+                name: 'authLogin',
+                component: authLogin
+            },
+            {
+                path: '/authError/:info',
+                name: 'authError',
+                component: authError
+            },
+            { // 短信验证登录
                 path: '/sms',
                 name: 'sms',
                 component: Sms
             },
-            { //注册
+            { // 注册
                 path: '/Register',
                 name: 'register',
                 component: Register
             },
-            { //找回密码
+
+            { // 忘记密码
                 path: '/bachWord',
                 name: 'bachWord',
                 component: bachWord
             },
-            { //登录绑定
-                path: '/logoInBind',
-                name: 'logoInBind',
-                component: logoInBind
+            { // 登录绑定
+                path: '/logInBind',
+                name: 'logInBind',
+                component: logInBind
             },
-            { //公告
+            { // 公告
                 path: '/Notice',
                 name: 'Notice',
                 component: Notice
             },
-            { //品牌馆列表
+            { // 公告详情
+                path: '/noticeChild/:id',
+                name: 'noticeChild',
+                component: noticeChild
+            },
+            { // 品牌馆列表
                 path: '/brandList',
                 name: 'brandList',
                 component: brandList
             },
-            { //品牌馆详情
+            { // 品牌馆详情
                 path: '/braDetails/:ID',
                 name: 'braDetails',
                 component: braDetails
             },
-            { //最新促销
+            { // 最新促销
                 path: '/latestProm',
                 name: 'latestProm',
                 component: latestProm
-            },
-            { //尾货清仓
-                path: '/poopClearance',
-                name: 'poopClearance',
-                component: poopClearance
             },
             { //热搜商品列表
                 path: '/list/:id/:status',
@@ -201,9 +308,14 @@ const router = new Router({
                 component: list
             },
             { //商品列表
-                path: '/comList/:id/:status',
+                path: '/comList/:status',
                 name: 'comList',
                 component: list
+            },
+            { //从首页“更多”进入的商品列表
+                path: '/listHomeMore/:status',
+                name: 'listHomeMore',
+                component: listHomeMore
             },
             { //积分商城-列表
                 path: '/IntegralMall',
@@ -231,9 +343,19 @@ const router = new Router({
                 component: feedback
             },
             { //商品详情Tbg
-                path: '/tab/:id',
+                path: '/tab/:id/:p_id/',
                 name: 'tab',
                 component: prTab
+            },
+            { //商品咨询详情
+                path: '/answerDetails',
+                name: 'answerDetails',
+                component: answerDetails
+            },
+            { //积分商品详情Tbg
+                path: '/integralTab/:id',
+                name: 'integralTab',
+                component: integralTab
             },
             { //我的消息
                 path: '/myNews',
@@ -245,25 +367,64 @@ const router = new Router({
                 name: 'newsConent',
                 component: newsConent
             },
-            { //搜索页
+            { //我的消息-详情
+                path: '/newsDetail/:id/:status',
+                name: 'newsDetail',
+                component: newsDetail
+            }, { //搜索页
                 path: '/search',
                 name: 'search',
                 component: Search
+            },
+            { //搜索页--在店铺搜索商品
+                path: '/SearchStoreGoods/:id',
+                name: 'SearchStoreGoods',
+                component: SearchStoreGoods
+            },
+            { //搜索列表页--在店铺搜索商品
+                path: '/listStoreGoods/:data/:id',
+                name: 'listStoreGoods',
+                component: listStoreGoods
             },
             { //商品详情
                 path: '/product/:id/:status',
                 name: 'product',
                 component: product
             },
-            { //积分订单
+            { //积分商品详情
+                path: '/integralDetail/:id/:status',
+                name: 'integralDetail',
+                component: integralDetail
+            },
+            { //积分订单订单
                 path: '/intOrder',
                 name: 'intOrder',
                 component: intOrder
             },
-            { //确认订单
-                path: '/order/:id',
+            { //商品立即购买确认订单
+                path: '/order/:good_id/:num',
                 name: 'order',
                 component: Order
+            },
+            { //积分商品立即购买确认订单
+                path: '/confirmOrderIntegral/:good_id/:num',
+                name: 'confirmOrderIntegral',
+                component: confirmOrderIntegral
+            },
+            { //购物车确认订单
+                path: '/cartOrder/:cart_id',
+                name: 'cartOrder',
+                component: cartOrder
+            },
+            { //购物车套餐确认订单
+                path: '/cartOrderPackage/:cart_id/:oldPrice/:reduction',
+                name: 'cartOrderPackage',
+                component: cartOrderPackage
+            }, ,
+            { //购物车套餐确认订单
+                path: '/orderPackage/:set_meal_id',
+                name: 'orderPackage',
+                component: orderPackage
             },
             // 付款
             {
@@ -271,10 +432,61 @@ const router = new Router({
                 name: 'payment',
                 component: payment
             },
+            // 付款信息 不要删除
+            {
+                path: '/paymentinfo',
+                name: 'paymentinfo',
+                component: paymentinfo
+            },
             { //支付
-                path: '/cashier/:id',
+                path: '/cashier/:id/:number',
                 name: 'cashier',
                 component: cashier
+            },
+            { //支付
+                path: '/cashierPackage/:id/:number',
+                name: 'cashierPackage',
+                component: cashierPackage
+            },
+            { //店铺入驻支付
+                path: '/CashierOpenShopPay/:id/:number',
+                name: 'CashierOpenShopPay',
+                component: CashierOpenShopPay
+            },
+            { // 积分商城支付
+                path: '/CashierIntegral/:id/:integral/:money',
+                name: 'CashierIntegral',
+                component: CashierIntegral
+            },
+            { //微信支付商品结果
+                path: '/success',
+                name: 'success',
+                component: success
+            },
+            { //支付宝支付商品结果
+                path: '/success_alipay',
+                name: 'success_alipay',
+                component: success_alipay
+            },
+            { //支付宝支付积分结果
+                path: '/recharge_success',
+                name: 'recharge_success',
+                component: recharge_success
+            },
+            { //微信支付积分结果
+                path: '/recharge_wx_success/:id',
+                name: 'recharge_wx_success',
+                component: recharge_wx_success
+            },
+            { //支付宝支付入驻结果
+                path: '/open_shop_alipay_success',
+                name: 'open_shop_alipay_success',
+                component: open_shop_alipay_success
+            },
+            { //微信支付入驻结果
+                path: '/open_shop_wx_success',
+                name: 'open_shop_wx_success',
+                component: open_shop_wx_success
             },
             { //账户管理
                 path: '/seetin',
@@ -317,14 +529,29 @@ const router = new Router({
                 component: modifyPassword
             },
             { //发票信息
-                path: '/invoice',
+                path: '/invoice/:status/:id',
                 name: 'invoice',
                 component: invoice
             },
-            { //订单
-                path: '/orderWrap/:status',
+            { //订单/:status
+                path: '/orderWrap',
                 name: 'orderWrap',
                 component: orderWrap
+            },
+            { //订单列表
+                path: '/orderList/:id',
+                name: 'orderList',
+                component: orderList
+            },
+            { //套餐列表
+                path: '/packageList/:id',
+                name: 'packageList',
+                component: packageList
+            },
+            { //套餐列表
+                path: '/packageOrderInfo/:id/:status',
+                name: 'packageOrderInfo',
+                component: packageOrderInfo
             },
             { //物流查询
                 path: '/logis/:id',
@@ -347,31 +574,18 @@ const router = new Router({
                 component: progress
             },
             { //重置密码
-                path: '/reset/:user_id',
+                path: '/reset',
                 name: 'reset',
                 component: reset
             },
-
-
-
-            { //名师专栏
-                path: '/theTeacher',
-                name: 'theTeacher',
-                component: theTeacher
-            },
-            { //名师推荐商品
-                path: '/pickWeek',
-                name: 'pickWeek',
-                component: pickWeek
-            },
-            { //限时团购
-                path: '/limitedbuy',
-                name: 'limitedbuy',
-                component: limitedbuy
+            { //修改密码手机验证
+                path: '/phoneVerify',
+                name: 'phoneVerify',
+                component: phoneVerify
             },
             { //个人资料
                 path: '/personal',
-                name: 'personalData',
+                name: 'personal',
                 component: personalData
             },
             { //修改手机号绑定
@@ -380,7 +594,7 @@ const router = new Router({
                 component: phone
             },
             { //申请售后
-                path: '/service/:status/:index',
+                path: '/service/:id/:goods_id/:status',
                 name: 'serviceBack',
                 component: serviceBack
             },
@@ -404,47 +618,178 @@ const router = new Router({
                 name: 'withdr',
                 component: withdr
             },
-            { //我的股票
-                path: '/shares',
-                name: 'shares',
-                component: shares
+            { //银行卡提现
+                path: '/bankCash',
+                name: 'bankCash',
+                component: bankCash
             },
-            { //接受微信请求  ------青菜新增
-                path: '/getInfo',
-                name: 'getInfo',
-                component: getInfo
+            { //支付宝提现
+                path: '/alipayCash',
+                name: 'alipayCash',
+                component: alipayCash
             },
-            { //接受微信app请求  ------三千新增
-                path: '/wxapppay/:userId',
-                name: 'wxapppay',
-                component: wxapppay
+            { //个人开店信息首页
+                path: '/checkProadd',
+                name: 'checkProadd',
+                component: checkProadd
             },
-            { //分销金额
-                path: '/withdrawal',
-                name: 'withdrawal',
-                component: withdrawal
+            { //个人开店信息id
+                path: '/checkProIdInfor',
+                name: 'checkProIdInfor',
+                component: checkProIdInfor
+
             },
-            { //提现申请
-                path: '/apply/:status',
-                name: 'apply',
-                component: apply
+            { //个人开店银行卡
+                path: '/checkProBankInfor',
+                name: 'checkProBankInfor',
+                component: checkProBankInfor
+
             },
-            { //提现
-                path: '/withdrawalapply',
-                name: 'withdrawalapply',
-                component: withdrawalapply
+            { //个人开店经营
+                path: '/checkProBusinessInfor',
+                name: 'checkProBusinessInfor',
+                component: checkProBusinessInfor
+
             },
-            { //提现列表
-                path: '/withdrawalList',
-                name: 'withdrawalList',
-                component: withdrawalList
+            { //企业信息入驻
+                path: '/checkCompanyadd',
+                name: 'checkCompanyadd',
+                component: checkCompanyadd
+
+            }, {
+                path: '/companyPhotos',
+                name: 'companyPhotos',
+                component: companyPhotos
+
             },
-            { //提现列表
-                path: '/myTeam',
-                name: 'myTeam',
-                component: myTeam
+            {
+                path: '/organizationPhotos',
+                name: 'organizationPhotos',
+                component: organizationPhotos
+
             },
+            {
+                path: '/checkCompanyBankInfor',
+                name: 'checkCompanyBankInfor',
+                component: checkCompanyBankInfor
+            },
+            {
+                path: '/checkComBusinessInfor',
+                name: 'checkComBusinessInfor',
+                component: checkComBusinessInfor
+            },
+            {
+                path: '/settledAgreement',
+                name: 'settledAgreement',
+                component: settledAgreement
+            },
+            {
+                path: '/settledAgreementSuc',
+                name: 'settledAgreementSuc',
+                component: settledAgreementSuc
+            },
+            {
+                path: '/agreementDetial',
+                name: 'agreementDetial',
+                component: agreementDetial
+            },
+            {
+                path: '/shoplist/:id',
+                name: 'shoplist',
+                component: shoplist
+            },
+            {
+                path: '/withPackages/:package_goods_id/:store_id',
+                name: 'withPackages',
+                component: withPackages
+            },
+            {
+                path: '/comboOrder/:obj',
+                name: 'comboOrder',
+                component: comboOrder
+            },
+            {
+                path: 'shopHomeList',
+                name: 'shopHomeList',
+                component: shopHomeList
+            },
+            {
+                path: '/shopDetails/:id',
+                name: 'shopDetails',
+                component: shopDetails
+            },
+            {
+                path: '/shopHome/:id/:index',
+                name: 'shopHome',
+                component: shopHome
+            },
+            {
+                path: '/paperwork/:id',
+                name: 'paperwork',
+                component: paperwork
+            },
+            {
+                path: '/shopOpen',
+                name: 'shopOpen',
+                component: shopOpen
+            },
+            {
+                path: '/description',
+                name: 'description',
+                component: description
+            },
+            {
+                path: '/pointsRules',
+                name: 'pointsRules',
+                component: pointsRules
+            },
+            {
+                path: '/documents',
+                name: 'documents',
+                component: documents
+            },
+            {
+                path: '/ordinaryDoc',
+                name: 'ordinaryDoc',
+                component: ordinaryDoc
+            },
+            {
+                path: '/editOrdinary',
+                name: 'editOrdinary',
+                component: editOrdinary
+            },
+            {
+                path: '/IncreaseDoc',
+                name: 'IncreaseDoc',
+                component: IncreaseDoc
+            },
+            {
+                path: '/editIncrease',
+                name: 'editIncrease',
+                component: editIncrease
+            },
+            {
+                path: '/billingDetails',
+                name: 'billingDetails',
+                component: billingDetails
+            },
+            {
+                path: '/auction',
+                name: 'auction',
+                component: auction
+            },
+            {
+                path: '/auctionList',
+                name: 'auctionList',
+                component: auctionList
+            },
+            {
+                path: '/message',
+                name: 'message',
+                component: message
+            },
+
         ]
-    }]
+    }],
 });
 export default router;

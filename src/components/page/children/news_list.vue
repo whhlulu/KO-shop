@@ -1,6 +1,6 @@
 <template>
     <div class="news">
-        <ul class="wrap" v-if="$store.state.news_data">
+        <ul class="wrap" v-if="$store.state.news_data.length != 0">
             <li class="clearfix" v-for="item in $store.state.news_data" :key="item.id" @click="tolink(item)">
                 <div class="img-wrap fl">
                     <img src="../../../assets/news2.png">
@@ -9,12 +9,12 @@
                     <h5>{{item.theme}}</h5>
                     <p class="text1-hidden">{{item.news_info}}</p>
                 </div>
-                <div class="time fl">{{new Date(item.create_time * 1000).getFullYear()+'-'+(new Date(item.create_time * 1000).getMonth() + 1)+'-'+new Date(item.create_time * 1000).getDay()}}</div>
+                <div class="time fl">{{item.create_time}}</div>
             </li>
         </ul>
-        <div class="default text-center" v-if="!$store.state.news_data">
+        <div class="default text-center" v-else>
             <img src="../../../assets/news_active.png">
-            <p class="text">还没有消息哦，快去选购吧！</p>
+            <p class="text">还没有消息哦，继续逛逛吧！</p>
         </div>
     </div>
 </template>
@@ -32,7 +32,7 @@
                     name:'newsConent',
                     params:{
                         id:item.id,
-                        status:1 //status = 1 为我的消息详情 status = 2 为客服中心 详情
+                        status:1
                     }
                 });
             }

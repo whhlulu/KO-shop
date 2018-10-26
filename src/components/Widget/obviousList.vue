@@ -2,12 +2,13 @@
   <div>
     <dl class="accDetails">
       <dt>{{accDetails.title}}</dt>
-      <dd class="clearfix" v-for="(item,index) in accDetails.content" :key="item.id">
+      <dd class="clearfix" v-for="item in accDetails.content" :key="item.id">
         <div class="fl text">
-          <h2>{{item.remarks}}</h2>
-          <p class="time">{{new Date(item.trading_time * 1000).getFullYear()+'/'+(new Date(item.trading_time * 1000).getMonth()+1)+'/'+new Date(item.trading_time * 1000).getDate()}}</p>
+          <h2 v-if="item.title">{{item.title}}</h2>
+          <h2 v-else>{{item.remarks}}</h2>
+          <p class="time">{{item.trading_time}}</p>
         </div>
-        <div class="fr status" :class="{Profit:item.type == '1'}">{{item.integral}}</div>
+        <div class="fr status" :class="{Profit:item.type == '1'}">{{item.changes_integral}}</div>
       </dd>
     </dl>
   </div>

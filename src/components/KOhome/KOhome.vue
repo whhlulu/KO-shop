@@ -5,13 +5,14 @@
         <!--</div>-->
         <div v-title data-title="主页">主页</div>
         <home-header :userName="getData"></home-header>
-        <mt-swipe :auto="4000">
+        <mt-swipe :auto="3000">
             <mt-swipe-item v-for="(item,index) in $store.state.lunboList" :key="item.id">
-                <img v-lazy="item.pic_url">
+                <img class="home-banner-img" :src="item.pic_url">
             </mt-swipe-item>
         </mt-swipe>
         <news-flash :nav="$store.state.fenlei"></news-flash>
         <whole-order></whole-order>
+        <to-Top></to-Top>
     </div>
 </template>
 <script>
@@ -19,6 +20,7 @@
     import NewsFlash from './children/newsFlash';
     import hotGoods from './children/hotGoods';
     import wholeOrder from '../KOpage/KOwhole.vue'
+    import toTop from '@/components/page/toTop'; //回到顶部
     export default {
         name: 'KOhome',
         data() {
@@ -71,11 +73,15 @@
             NewsFlash,
             hotGoods,
             wholeOrder,
+            toTop
         }
     }
 </script>
 <style lang="less">
     .KOhome{
+        .home-banner-img{
+            background-size: 100%;
+        }
         .mint-swipe-indicators{
             width: 100%;
             text-align: center;

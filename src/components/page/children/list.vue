@@ -3,9 +3,10 @@
         <div class="hd clearfix">
             <span class="pull-left fl" :class="{active:isClass}">{{conItem.title}}</span>
             <span class="pull-right fr" v-if="!isClass" @click="myLove">换一换</span>
+            <span class="pull-right fr" v-else @click="tolink(1)">更多</span>
         </div>
         <div class="item-list-wrap clearfix">
-            <div class="item-list fl" v-for="(item,index) in data" :key="item.id" @click="tolink(item.id)">
+            <div class="item-list fl" v-for="item in data" :key="item.id" @click="tolink(item.id)">
                 <img v-lazy="URL + item.pic_url">
                 <p class="item-text">{{item.title}}</p>
                 <p class="price">￥<span>{{item.price_member || item.price_market}}</span></p>
@@ -17,17 +18,21 @@
     </div>
 </template>
 <script>
+    import qs from 'qs';
     export default {
         name : 'list',
         data(){
             return {
                 isClass:false,
-                load:false
+                load:false,
+                page:1
             }
         },
         props:{
             conItem:'',
-            data:''
+            data:'',
+            val:'',
+            storeId:''
         },
         mounted() {
             if(this.conItem.title == '搭配套餐推荐'){
@@ -36,25 +41,45 @@
         },
         methods:{
             tolink(index){
-                this.$router.push({
-                    name:'product',
-                    params:{
-                        id:index
+                let goodsId = '';
+                if(this.val ==1){
+                    if(this.$store.state.goods_id){
+                        goodsId = this.$store.state.goods_id;
+                    }else{
+                        goodsId = this.$route.params.id;
                     }
-                });
-                window.location.reload();
+                    this.$router.push({
+                        name:'withPackages',
+                        params:{
+                            package_goods_id:goodsId,
+                            store_id:this.storeId
+                        }
+                    });
+                }else if(this.val == 2){
+                    this.$router.push({
+                        name:'product',
+                        params:{
+                            id:index,
+                            status:1
+                        }
+                    });
+                    window.location.reload();
+                }
+               
             },
             myLove(){
-                this.load = true;
-                this.axios({//猜你喜欢
-                    url:API_URL + 'Home/Goods/my_love',
-                    method:'get',
-                    params:{
-                        app_user_id:sessionStorage.getItem('user_ID')
-                    }
-                }).then((res) => {
-                    this.load = false;
-                    this.$store.state.dataLeave = res.data.data;
+
+                let p = ++this.page;
+                this.axios.post(
+                    this.$httpConfig.guessLove,
+                    qs.stringify({page : p}),
+                    
+                ).then((res) => {
+                	if(res.data.status==10001){
+                		this.$router.push('/LogIn');
+                	}else{
+	                    this.$store.state.dataLeave = res.data.data;
+	                }
                 }).catch((err) => {
                     console.log(err);
                 });
@@ -91,9 +116,9 @@
                 }
                 .item-text{
                     font-size:.22rem;
-                    line-height:.28rem;
+                    line-height:.31rem;
                     color:#727374;
-                    height:.5rem;
+                    height:.6rem;
                     overflow : hidden;
                     text-overflow: ellipsis;
                     display: -webkit-box;

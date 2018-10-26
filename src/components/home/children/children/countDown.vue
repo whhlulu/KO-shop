@@ -21,11 +21,11 @@
         props:{
             endTime:{
                 type: Number || String,
-                default :''
+                default :'2018/05/13 17:16:01'
             },
             endText:{
                type : String,
-               default:'已结束'
+               default:'活动已结束'
             },
             callback : {
                 type : Function,
@@ -75,7 +75,7 @@
         height:.5rem;
         text-align:center;
         padding:0 .5rem;
-        weight:1.65rem;
+        font-weight:700;
         line-height:.5rem;
         color:#666;
         margin-top:-.08rem;

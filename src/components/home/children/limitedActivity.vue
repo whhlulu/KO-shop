@@ -29,9 +29,9 @@
             itemList
         },
         methods:{
-            callback:function(){
-                console.log('已经结束了！')
-            }
+            // callback:function(){
+            //     console.log('已经结束了！')
+            // }
             
         },
         created(){

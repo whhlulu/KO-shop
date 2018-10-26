@@ -4,8 +4,8 @@
         <header class="header"><span @click="Return"></span>{{text}}</header>
         <div class="content-wrap">
             <ul class="content">
-                <li v-for="(item,index) in items" :key="item.id">
-                    <img src="../../assets/notice-icon.jpg">
+                <li v-for="item in items" :key="item.id" @click="hit(item.id)">
+                    <img src="../../assets/images/B_inform.png">
                     <p>{{item.title}}</p>
                 </li>
             </ul>
@@ -19,7 +19,7 @@
         name : 'notice',
         data(){
             return {
-                text:'snopSn公告',
+                text:this.$constant.mainName+'公告',
                 items:'',
                 scrollWatch:true,
                 load_wrap:true
@@ -28,6 +28,14 @@
         methods:{
             Return:function(){
                 this.$router.go(-1);
+            },
+            hit(id){
+            	this.$router.push({
+            		name:'noticeChild',
+            		params:{
+            			id:id
+            		}
+            	})
             }
         },
         mounted() {
@@ -35,9 +43,7 @@
         },
         created(){
             this.axios({
-
-                url:API_URL+'Home/Index/home',
-
+                url:this.$httpConfig.home,
                 method:'post',
             }).then(res => {
                 this.items = res.data.data.announcement;
@@ -61,7 +67,7 @@
         .header{
             width:100%;
             height:.9rem;
-            background: #d0111b;
+            background: #C79A01;
             text-align:center;
             line-height:.9rem;
             color:#fff;

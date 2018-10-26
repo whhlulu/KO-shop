@@ -1,18 +1,14 @@
 <template>
     <div>
-        <div style="height:4rem;">
-            <div class="dd" v-if="data">
-                <ul class="clearfix" :style="{ width : data.length * 2.3+'rem'}">
-                    <li class="fl" v-for="(item,index) in data" :key="item.id" @click="tolink(index)">
-                        <img v-lazy="URL + item.pic_url">
-                        <div class="title">
-                            <p class="desi text2-hidden">{{item.title}}</p>
-                        </div>
-                        <p class="price">￥<i class="newPrice">{{item.price_market}}</i></p>
-                        <p class="price"><span class="bPrice">￥<s>{{item.price_member}}</s></span><i class="icon"></i></p>
-                    </li>
-                </ul>
-            </div>
+        <div class="dd" v-if="data">
+            <ul class="clearfix" :style="{ width : data.length * 2.3+'rem'}">
+                <li class="fl" v-for="(item,index) in data" :key="item.id" @click="tolink(index)">
+                    <img v-lazy="URL + item.pic_url">
+                    <p class="desi text2-hidden">{{item.title}}</p>
+                    <p class="price">￥<i class="newPrice">{{item.price_market}}</i></p>
+                    <p class="price"><span class="bPrice">￥<s>{{item.price_member}}</s></span><i class="icon"></i></p>
+                </li>
+            </ul>
         </div>
         <div class="banner" v-for="item in banner" :key="item.id">
             <img v-lazy="URL + item.pic_url">
@@ -51,6 +47,7 @@
 <style lang="less" scoped>
         div{
             overflow: hidden;
+            height:3.69rem;
         .dd{
             width:100%;
             height:4.69rem;
@@ -67,22 +64,18 @@
                     -webkit-box-sizing:border-box;
                     margin-left:.1rem;
                     position:relative;
-                    .title{
-                        height: .8rem;
-                        .desi{
-                            color:#333;
-                            font-size:.24rem;
-                            line-height:.32rem;                   
-                            padding-top:.2rem;
-                            overflow:hidden; 
-                        }
+                    .desi{
+                        color:#333;
+                        font-size:.24rem;
+                        line-height:.32rem;
+                        height: .57rem;
+                        margin:.2rem 0;
+                        overflow:hidden; 
                     }
-                    
                     .price{
                         position:relative;
                         font-size:.22rem;
                         color:#e02828;
-                        padding-top: .1rem;
                         padding-bottom:.05rem;
                         .icon{
                             position:absolute;

@@ -1,14 +1,13 @@
 <template>
-    <div>
-        <div v-if="data.brand" v-title :data-title="data.brand.brand_name">{{data.brand.brand_name}}</div>
-        <list-header  v-if="data.brand" :set="true" :text="data.brand.brand_name"></list-header>
+    <div ref="brand_list">
+        <list-header  v-if="brand" :set="true" :text="brand.brand_name"></list-header>
         <div class="banner">
-            <img v-lazy="URL + brand_banner">
+            <img v-lazy="URL + brand.brand_banner">
         </div>
-        <div class="list-header" v-if="data.brand">
+        <div class="list-header" v-if="brand">
             <div class="content">
                 <div class="logo"><img v-lazy="URL + brand_logo"></div>
-                <h6>{{data.brand.brand_name}}</h6>
+                <h6>{{brand.brand_name}}</h6>
                 <p class="text2-hidden">{{brand_description}}</p>
             </div>
         </div>
@@ -21,36 +20,45 @@
             </li>
             <li class="fl" :class="{active:sort_status == 2}" @click="sort('jg')">价格
                 <span class="icon">
-                    <em class="top" :class="{active:sort_id == 3}"></em><br>
-                    <em class="bottom" :class="{active:sort_id == 4}"></em>
+                    <em class="bottom" :class="{active:sort_id == 3}"></em><br>
+                    <em class="top" :class="{active:sort_id == 4}"></em>
                 </span>
             </li>
             <li class="fl" @click="sort('rq')" :class="{active:sort_status == 3}">人气</li>
         </ul>
-        <list-lop :data="data.goods"></list-lop>
+        <list-lop :data="goods"></list-lop>
         <Shopsn></Shopsn>
+        <to-top></to-top>
         <div class="load" v-show="load" @touchmove.prevent><mt-spinner type="triple-bounce" color="rgb(38, 162, 255)"></mt-spinner></div>
         <div class="load-wrap" v-show="load_wrap" @touchmove.prevent><mt-spinner type="triple-bounce" color="rgb(38, 162, 255)"></mt-spinner></div>
     </div>
 </template>
 <script>
     import QS from 'qs';
-    import listHeader from '@/components/page/children/header';
-    import listLop from '@/components/Widget/searchList';
+    import listHeader from '@/components/page/children/header.vue';
+    import listLop from './searchList';
     import Shopsn from '@/components/page/Shopsn.vue';
+    import toTop from '@/components/page/toTop.vue';
     export default {
         name : 'listDetails',
         data(){
             return {
-                data:'',
-                brand_banner:'',
+                goods:[],
+                brand:'',
                 brand_logo:'',
                 brand_description:'',
                 sort_id:null,
                 sort_status:null,
                 load:false,
                 scrollWatch:true,
-                load_wrap:true
+                load_wrap:true,
+                isactive: '',
+                slide_switch: false, //避免多次下拉
+                load_show: true, //滚动动画
+                roll_switch: true, //触发下拉加载开关
+                no_data: false, //第一次没数据时的样式
+                sliding_no_data: false, //下拉没数据时的样式
+                page: 1,
             }
         },
         methods:{
@@ -83,27 +91,71 @@
                         this.load = true;
                         break;
                 }
-                this.axios.post(API_URL + 'Home/Brand/brandDetail',QS.stringify({
+                this.axios.post(this.$httpConfig.brandDetail,QS.stringify({
                     id:this.$route.params.ID,
-                    sort:this.sort_id
+                    sort:this.sort_id,
+                    page:this.page
                 })).then(res => {
-                    this.data = res.data.data;
-                    this.brand_banner = res.data.data.brand.brand_banner;
+                    this.goods = [];
+                    this.stateHandling(res.data.status, res.data.data.goods);
+                    this.brand = res.data.data.brand;
                     this.brand_logo = res.data.data.brand.brand_logo;
                     this.brand_description = res.data.data.brand.brand_description;
-
                     this.$store.state.braDetails = res.data.data;
                     this.load = false;
                 }).catch(err => {
                     console.log(err)
                 });
-            }
+            },
+            //请求成功后的操作
+            returnOperation(data) {
+                if (data.length < 10 && this.page == 1) { //第一次请求成功如果数据没达到每页页数就禁止下拉
+                    this.load_show = false; //动画隐藏
+                    this.roll_switch = false; //禁止下拉加载
+                }
+                for (let index = 0; index < data.length; index++) {
+                    this.goods.push(data[index]);
+                }
+                this.slide_switch = true;
+            },
+            //请求后返回不同状态时的处理
+            stateHandling(status, data) {
+                this.sw = true;
+                if (status == 10001) {
+                    this.$router.push('/LogIn');
+                } else if (status == 1) { //成功后的处理
+                    this.returnOperation(data);
+                } else if (status == 0 && this.page == 1) { //第一次请求失败时
+                    this.no_data = true; //无数据时的样式
+                    this.load_show = false; //动画隐藏
+                    this.roll_switch = false; //禁止下拉加载
+                } else { //第二次或更多次无数据时
+                    this.sliding_no_data = true; //无数据时的样式
+                    this.load_show = false; //动画隐藏
+                    this.roll_switch = false; //禁止下拉加载
+                }
+            },
         },
         created(){
             this.sort();
         },
         mounted(){
             document.body.scrollTop = 0;
+            let _this = this;
+            window.addEventListener('scroll', function () {
+                if (!_this.$refs.brand_list) return;
+                if (document.body.scrollTop + window.innerHeight >= document.body.offsetHeight) {
+                    //如果第一次请求没数据或数据没达到每页个数就不会再请求数据
+                    if (_this.roll_switch == false) {
+                        return;
+                    }
+                    if (_this.slide_switch == true) {
+                        _this.slide_switch = false;
+                        _this.page++;
+                        _this.sort();
+                    }
+                }
+            })
         },
         destroyed(){
             this.scrollWatch = false;
@@ -117,7 +169,8 @@
         components:{
             listHeader,
             listLop,
-            Shopsn
+            Shopsn,
+            toTop
         }
     }
 </script>
@@ -176,7 +229,9 @@
                 border:2px solid #fff;
                 background:#000;
                 img{
-                    width: 90%;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
                     position:absolute;
                     left:0;
                     top:0;

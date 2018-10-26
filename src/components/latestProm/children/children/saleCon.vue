@@ -23,6 +23,7 @@
         props:{
             data:''
         },
+        created(){},
         methods:{
             tolink(item){
                 this.$router.push({
@@ -34,20 +35,26 @@
                 });
             },
             jion(item){
-                this.axios.post(API_URL + 'Home/Cart/add_cart',qs.stringify({
-                    app_user_id:sessionStorage.getItem('user_ID'),
+                this.axios.post(this.$httpConfig.addGoodToCart,qs.stringify({
                     goods_id:item.id,
                     goods_num:1,
-                    price_new:item.price_market
+                    price_new:item.price_market,
+                    store_id:item.p_id
                 })).then((res) => {
-                    Toast({
-                        message: res.data.msg,
-                        position: 'bottom',
-                        duration: 5000
-                    });
+                	if(res.data.status==10001){
+		                this.$router.push('/LogIn');
+		            }else {
+	                	Toast({
+	                        message: res.data.msg,
+	                        position: 'bottom',
+	                        duration: 5000
+	                    });
+	                    this.$router.push({ path: '/Cart',}); 
+	               }
                 }).catch((err) => {
                     console.log(err);
                 });
+
             }
         }
     }

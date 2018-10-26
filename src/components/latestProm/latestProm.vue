@@ -3,17 +3,18 @@
         <div v-title data-title="最新促销">最新促销</div>
         <latest-header></latest-header>
         <mt-swipe :auto="4000">
-            <mt-swipe-item v-for="item in data.top_img" :key="item.id"><img v-lazy="URL + item.pic_url"></mt-swipe-item>
+            <mt-swipe-item v-for="item in data.top_img" :key="item.id">
+            	<img v-lazy="URL + item.pic_url">
+            </mt-swipe-item>
         </mt-swipe>
         <latest-pro :banner="hot_promotion_img" :data="data"></latest-pro>
         <latest-item-list :status="sta" :set="set" :data="recommend_hot"></latest-item-list>
         <latest-sale :data="sale_promotion"></latest-sale>
-
         <div class="load-wrap" v-show="load_wrap" @touchmove.prevent><mt-spinner type="triple-bounce" color="rgb(38, 162, 255)"></mt-spinner></div>
     </div>
 </template>
 <script>
-    import latestHeader from '@/components/home/children/Header';
+    import latestHeader from './children/Header.vue';
     import latestPro from './children/promotion';
     import latestSale from './children/sale';
     import latestItemList from '@/components/Widget/slideItem';
@@ -29,7 +30,7 @@
                 recommend_hot:'',
                 sale_promotion:'',
                 sta:'疯抢',
-                set:'热卖'
+                set:'热卖',
             }
         },
         components:{
@@ -52,7 +53,7 @@
         },
         created(){
             this.axios({
-                url:API_URL + 'Home/Index/promotions',
+                url:API_URL + 'HomeIndex/promotions',
                 method:'post'
             }).then(res => {
                 this.data = res.data.data;
@@ -62,6 +63,7 @@
             }).catch(err => {
                 console.log(err)
             });
+			
         }
     }
 </script>

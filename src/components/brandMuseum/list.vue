@@ -1,7 +1,7 @@
 <template>
     <div class="bar-list-wrap">
         <div v-title :data-title="title">{{title}}</div>
-        <list-header :sea="search"></list-header>
+        <list-header :text="title"></list-header>
         <mt-index-list>
             <mt-index-section v-for="(item,index) in data" :key="item.id" :index="item.letter">
                 <li v-for="(listItem,n) in item.value" :key="listItem.id" class="clearfix list-golp" @click="toLink(index,n)">
@@ -10,7 +10,6 @@
                 </li>
             </mt-index-section>
         </mt-index-list>
-
         <Shopsn></Shopsn>
         <div class="load-wrap" v-show="load_wrap" @touchmove.prevent><mt-spinner type="triple-bounce" color="rgb(38, 162, 255)"></mt-spinner></div>
     </div>
@@ -49,10 +48,10 @@
         destroyed(){
             this.scrollWatch = false;
         },
-        mounted(){
+        created(){
             document.body.scrollTop = 0;
             this.axios({
-                url:API_URL + 'Home/brand/brandList',
+                url:this.$httpConfig.brandList,
                 method:'post'
             }).then(res => {
                 this.data = res.data.data;
@@ -70,6 +69,8 @@
     .bar-list-wrap{
         .mint-indexlist-content{
             width: 100%;
+            height: 100%!important;
+            -webkit-overflow-scrolling: touch;
             .mint-indexsection{
                 .mint-indexsection-index{
                     background:#f6f6f6;
@@ -79,9 +80,13 @@
                     line-height: .46rem;
                 }
                 ul{
-                    padding-left:.2rem;
+                    
                     box-sizing: border-box;
                     background:#fff;
+                    li{
+                        padding-left:.2rem;
+                        border-bottom:.01rem solid #eee;
+                    }
                 }
             }
         }

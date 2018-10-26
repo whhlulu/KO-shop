@@ -4,7 +4,7 @@
             <li class="fl" v-for="(item,index) in data" :key="item.id" @click="tolink(index)">
                 <img v-lazy="URL + item.pic_url">
                 <p class="desi">{{item.title}}</p>
-                <p class="price">￥<span>{{item.price_market}}</span></p>
+                <p class="price">￥<span>{{item.goods_price}}</span></p>
             </li>
         </ul>
     </div>    
@@ -15,7 +15,7 @@
         props:{
             data:null
         },
-        methods:{
+       methods:{
             tolink(index){
                 this.$router.push({
                     name:'product',
@@ -25,7 +25,11 @@
                     }
                 });
             }
-        }
+       },
+       created(){
+       		
+       		
+       }
     }
 </script>
 <style lang="less" scoped>
@@ -54,7 +58,7 @@
                 }
                 .price{
                     padding-left:.2rem;
-                    color:#e02828;
+                    color:#D19E29;
                     font-size:.3rem;
                     span{
                         font-size:.36rem;

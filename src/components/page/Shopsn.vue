@@ -1,5 +1,5 @@
 <template>
-    <div class="shopsn">
+    <div class="shopsn1">
         <div class="z_shopsn" v-html="datas">
           {{datas}}
         </div>
@@ -14,14 +14,6 @@
            }
         },
         mounted() {
-           this.axios({
-                url: API_URL + 'Home/Index/checkUjiaoQianlmei',
-                method: 'get'
-            }).then((res) => {
-                this.datas=res.data;
-            }).catch((err) => {
-                console.log(err);
-            });
         }      
     }
 </script>

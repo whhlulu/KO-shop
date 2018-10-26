@@ -22,7 +22,6 @@ export default {
     }
   },
   methods:{
-    
       show_notice: function() {
           $("#motify").show();
           $("#motify_content").html(content);
@@ -35,7 +34,6 @@ export default {
           let jsApiParameters = this.$route.params.data.jsApiParameters;
           WeixinJSBridge.invoke('getBrandWCPayRequest', jsApiParameters, function(res) {
               var msg = res.err_msg;
-              console.log(res)
               if (msg == "get_brand_wcpay_request:ok") {
                   this.$router.push({
                             name: 'orderWrap',
@@ -58,7 +56,6 @@ export default {
           })
       },
   callpay:function() {
-      
       alert(1);
         if (typeof WeixinJSBridge == "undefined") {
             if (document.addEventListener) {
@@ -68,9 +65,9 @@ export default {
                 document.attachEvent('onWeixinJSBridgeReady', this.jsApiCall)
             }
         } else {
-            this.jsApiCall();
-  }
-},
+           this.jsApiCall();
+        }
+    },
   },
    mounted() {
     this.order_money.push(this.$route.params.data.jsApiParameters);
@@ -83,6 +80,7 @@ export default {
                 document.attachEvent('onWeixinJSBridgeReady', '');
             }
         } else {
+        	
         }
    }
   

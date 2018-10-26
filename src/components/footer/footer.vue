@@ -11,13 +11,13 @@
 </template>
 <script>
     export default {
-        name: 'foote',
+        name: 'page-footer',
         data() {
             return {
                 isClass:sessionStorage.getItem('router_index'),
                 tabbar:{
-                    isIcon:[require('@/assets/tab_icon_home-active.png'),require('@/assets/tab_icon_class_active.png'),require('@/assets/tab_icon_cart_active.png'),require('@/assets/tab_icon_per_active.png')],
-                    Icon:[require('@/assets/tab_icon_home.png'),require('@/assets/tab_icon_class.png'),require('@/assets/tab_icon_cart.png'),require('@/assets/tab_icon_per.png')],
+                    isIcon:[require('@/assets/images/home_icon_active.png'),require('@/assets/images/class_icon_active.png'),require('@/assets/images/cart_icon_active.png'),require('@/assets/images/per_icon_active.png')],
+                    Icon:[require('@/assets/images/home_icon.png'),require('@/assets/images/class_icon.png'),require('@/assets/images/cart_icon.png'),require('@/assets/images/per_icon.png')],
                     font:['首页','分类','购物车','我的']
                 }
             }
@@ -36,50 +36,24 @@
                         });
                         break;
                     case 2:
-                        if(!sessionStorage.getItem('user_ID')){
-                                this.$router.push({
-                                path:'/LogoIn'
-                            });
-                            return
-                        }else{
-                            this.$router.push({
-                                path:'/Cart'
-                            });
+                        this.$router.push({
+                            name: 'Cart'
+                        });
                         break;
-                        };
                     case 3:
-                       if(!sessionStorage.getItem('user_ID')){
-                                this.$router.push({
-                                path:'/LogoIn'
-                            });
-                            return
-                        }else{
-                            this.$router.push({
-                                path:'/person'
-                            });
+                        this.$router.push({
+                            path:'/person'
+                        });
                         break;
-                        }
-                    }
                 }
-            },
+            }
+        },
         watch:{
             '$route'(to,from){
-                // if(to.path == '/person'){
-                //     if(sessionStorage.getItem('user_ID')){
-                //         this.$router.push({
-                //             path:'/person'
-                //         });
-                //     }else{
-                //         this.$router.push({
-                //             path:'/LogoIn'
-                //         });
-                //     }
-                // }
                 this.isClass = sessionStorage.getItem('router_index');
             }
         },
         created(){
-            
         }
     }
 </script>
@@ -94,7 +68,7 @@
             bottom:0;
             left:0;
             background:#fff;
-            border-top:3px solid #fa6a2d;
+            
             z-index:2;
             background:#fff;
             box-shadow: border-box;
@@ -102,14 +76,18 @@
             li{
                 width:25%;
                 text-align:center;
+                
                 .font{
                     font-size:.2rem;
                     color:#333;
+                    padding-bottom:5/100rem;
+                    display: inline-block;
                 }
                 .icon{
-                    height:.65rem;
+                    height:.55rem;
                     position:relative;
                     display:block;
+                    border-top:3px solid #313133;
                     img{
                         position:absolute;
                         left:0;
@@ -121,11 +99,12 @@
                 }
                 .icon.active{
                     display:none;
+                    border-top:3px solid #D09D2A;
                 }
             }
             li.isSelected{
                 .font{
-                    color:#f9781e;
+                    color:#D09D2A;
                 }
                 .icon.active{
                     display:block;

@@ -3,43 +3,31 @@
       <rech-header :text="title"></rech-header>
       <div class="rech-amount clearfix">
           <span class="title fl">充值金额</span>
-          <input type="number" class="fl" placeholder="建议充值100元以上金额">
-      </div>
-      <div class="choice" @click="theChecked">
-        <input type="radio" class="radio-input" value="使用账户余额" :checked="disabled">
-        <span class="radio-core"></span>
-        <span class="radio-label">网银服务</span>
+          <input type="number" class="fl" placeholder="建议充值100元以上金额" v-model="$store.state.amount">
       </div>
       <div v-title :data-title="title">{{title}}</div>
-      <btn :text="text"></btn>
       <other :otherdata="otherdata"></other>
   </div>
 </template>
 <script>
+import qs from 'qs';
+   import { Toast } from 'mint-ui';
     import rechHeader from '@/components/page/children/header.vue';
-    import btn from '@/components/Widget/maxBtn.vue';
-    import other from '@/components/Widget/payMethods.vue';
+    import other from '@/components/payment/payMethods.vue';
     export default {
         name : 'recharge',
         data(){
             return {
-                title:'shopsn充值',
+                title:this.$constant.mainName+'充值',
                 text:'立即充值',
                 disabled:false,
                 otherdata:{
-                    img:[require('@/assets/alipay.jpg'),require('@/assets/wx.jpg')],
                     title:['支付宝支付','微信支付'],
                     content:['支付宝安全支付','微信安全支付']
                 }
             }
         },
-        methods:{
-            theChecked(){
-                this.disabled = true;
-            }
-        },
         components:{
-            btn,
             other,
             rechHeader
         }
@@ -133,5 +121,21 @@
                 }
             }
         }
+    }
+    .form-btn{
+        width:7.1rem;
+        height:.9rem;
+        background: #D19E29;
+        border:none;
+        border-radius:20px;
+        color:#fff;
+        display:block;
+        margin:.62rem auto;
+        box-sizing: border-box;
+        font-size:.4rem;
+        outline: none;
+    }
+    .form-btn:active{
+        box-shadow: 0 5px 5px #ccc;
     }
 </style>

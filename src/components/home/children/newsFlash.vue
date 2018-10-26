@@ -1,33 +1,37 @@
 <template>
     <div class="flash-wrap">
-        <ul class="flash-dd clearfix">
-            <li class="fl" v-for="(n,index) in nav" :key="n.id" @click="link(index)">
-                    <img v-lazy="URL + newdata.imgSrc[index]">
-                <p>{{n.nav_titile}}</p>
-            </li>
-        </ul>
-        <div class="flash-dt clearfix">
-            <div class="flash-news fl text-center">公告</div>
-            <div class="flash-content fl">
-            <em></em>
-            <ul class="scroll_box" ref="scroll_box">
-                    <li  class="text-single-hidden" v-for="(item,index) in data" :key="item.id">{{item.title}}</li>
-            </ul>
+       
+         <!-- 快讯 -->
+        <div class="index_flash">
+            <div class="index_flash_logo">
+                <span class="i_f_l_text" id="title_name">{{title_name}}</span>
+                <span class="i_f_l_img">快讯</span>    
             </div>
-            <router-link to="/Notice" class="flash-more fr">更多</router-link>
+            <div class="box-wrap">
+                <ul class="scroll_box" ref="scroll_box" >
+                    <li  v-for="item in data" :key="item.id" @click="hit(item.id)">{{item.title}}</li>
+                </ul>
+            </div>
+            <router-link to="Notice" class="More">更多</router-link>
+        </div>
+           <!-- 快捷链接 -->
+        <div class="index_Ctrl">
+            <div class="index_Ctrl_auto">
+                <span class="link" @click = "linkTo(item.link,index)"   v-for="(item, index) in nav" :key="index">
+                    <img :src="URL+item.pic"/>
+                    <span>{{item.nav_titile}}</span>
+                </span>
+            </div>
         </div>
     </div>
 </template>
 <script>
+import qs from "qs"
     export default {
         name: 'newsflash',
         data() {
             return {
-                newdata:{
-
-                    imgSrc:['/Uploads/navimg/navimg-1.png','/Uploads/navimg/navimg-2.png','/Uploads/navimg/navimg-3.png','/Uploads/navimg/navimg-4.png','/Uploads/navimg/navimg-5.png','/Uploads/navimg/navimg-6.png','/Uploads/navimg/navimg-7.png','/Uploads/navimg/navimg-8.png',],
-                    text:['最新促销','尾货清仓','品牌馆','积分商城','家用电器','手机数码','电脑办公','更多']
-                }
+                title_name:this.$constant.mainName,
             }
         },
         props:{
@@ -38,71 +42,25 @@
             this.scroll_box();
         },
         methods: {
+            linkTo(link,index){
+                location.href = link;
+            },
             scroll_box(){
                 var count = 0,
                     clear = null;
                 clear = setInterval(() => {
                     count ++;
-                    if(count >= this.$store.state.home_data.announcement.length){
+                    
+                    if(this.$store.state.home_data.announcement && count >= this.$store.state.home_data.announcement.length){
                         count = 0;
                     }
                     if(this.$refs.scroll_box){
                         this.$refs.scroll_box.style.top = -count * 0.55 +'rem';
                     }
-                    
                 },2000);
             }, 
-            link(index){
-                switch(index){
-                    case 0:
-                        this.$router.push({
-                            path:'/latestProm'
-                        });
-                        break;
-                    case 1:
-                        this.$router.push({
-                            path:'/poopClearance'
-                        });
-                        break;
-                    case 2:
-                        this.$router.push({
-                            path:'/brandList'
-                        });
-                        break;
-                    case 3:
-                        // this.$router.push({
-                        //     path:'/IntegralMall'
-                        // });
-                        break;
-                    case 4:
-                        this.$router.push({
-                            name:'comList',
-                            params:{
-                                id:'office',
-                                status:'office'
-                            }
-                        });
-                        break;
-                    case 5:
-                        this.$router.push({
-                            path:'/Integral',
-                            // params:{
-                            //     status:'mobile'
-                            // }
-                        });
-                        break;
-                    case 6:
-                        // this.$router.push({
-                        //     name:'comList',
-                        //     params:{
-                        //         status:'office'
-                        //     }
-                        // });
-                        break;
-                    case 7:
-                        this.$router.push('/home');
-                        break;
-                }
+            hit(id){
+            	this.$emit('hit',id)
             }
         }
     }
@@ -195,6 +153,126 @@
             width:100%;
             height:2.33rem;
             background:#fff;
+        }
+    }
+         .index_Ctrl{
+           width: 100%;
+           overflow: hidden;
+           background-color: #fff;
+           border-top:1px solid #DEDEDE;
+           padding-bottom: 0.35rem;
+         .index_Ctrl_auto{
+            width: 7.1rem;
+            overflow: hidden;
+            margin: auto;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+         }
+         .index_Ctrl_auto .link{
+            display: block;
+            width:1.15rem;
+            height: 1.6rem;
+            float: left;
+            margin-right: 0.33rem;
+            margin-top: 0.3rem;
+            overflow: hidden;
+        }
+        .index_Ctrl_auto .link:nth-child(5n){
+            margin-right: 0;
+        }
+        .index_Ctrl_auto .link img{
+            width: 1.15rem;
+            height: 1.15rem;
+            display: block;
+            border-radius: 50%;
+           
+        }
+        .index_Ctrl_auto .link span{
+            width: 100%;
+            height: 0.45rem;
+            display: block;
+            color: #333;
+            font-size: 0.26rem;
+            text-align: center;
+            line-height: 0.55rem;
+            font-weight: 500;
+        }  
+    }
+    .index_flash{
+        width: 100%;
+        height: 0.8rem;
+        background-color: #fff;
+        overflow: hidden;
+        .index_flash_logo{
+            width: 2rem;
+            height: 0.55rem;
+            border-right:1px dashed #DEDEDE;
+            margin-top: 0.12rem;
+            float: left;
+            margin-left: 0.2rem
+        }
+        .i_f_l_text{
+            width: 1rem;
+            height: 0.55rem;
+            display: block;
+            float: left;
+            font-size: 0.3rem;
+            line-height: 0.55rem;
+        }
+        .i_f_l_img{
+            width: 0.87rem;
+            height: 0.45rem;
+            display: block;
+            float: left;
+            margin-top: 0.05rem;
+            background-image: url("../../../assets/images/index_flash.png");
+            background-size: 100% 100%;
+            text-indent: 0.24rem;
+            font-size: 0.27rem;
+            color: #fff;
+            line-height: 0.43rem;
+        }
+        .box-wrap{
+            position: relative;
+            width: 4.05rem;
+            height: 0.55rem;
+            margin-top: 0.12rem;
+            float: left;
+            margin-left: 0.2rem;
+            overflow: hidden;
+            .scroll_box{
+                position: absolute;
+                left:0;
+                top:0;
+                transition: 1s all ease;
+            }
+        }
+        .scroll_box li{
+            width: 4.05rem;
+            height: 0.55rem;
+            line-height: 0.55rem;
+            font-size: 0.28rem;
+            color: #333;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+            display: block;
+            cursor: pointer;
+        }
+        .More{
+            width: 0.75rem;
+            height: 0.55rem;
+            display: block;
+            float: right;
+            margin-top: 0.12rem;
+            border-left:1px dashed #DEDEDE;
+            text-align: right;
+            line-height: 0.55rem;
+            color:#797979;
+            font-size: 0.28rem;
+            margin-right: 0.2rem
         }
     }
 </style>

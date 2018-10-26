@@ -1,6 +1,6 @@
 <template>
     <div>
-        <keep-alive>
+        <keep-alive include="home">
             <router-view></router-view>
         </keep-alive>
         <foot-nav></foot-nav>

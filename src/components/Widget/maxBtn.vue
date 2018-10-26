@@ -10,52 +10,76 @@
         name : 'btn',
         props:{
             text:'',
-            bt:''
+            bt:'',
+            orderId:'',
+            integral:'',
+            orderID:''
+        },
+        data () {
+            return {
+                btns:false
+            }
         },
         methods:{
             bypay(){
-                if(this.$route.params.id == 3){
-                    Toast("当前积分不足,无法兑换");
-                }else{
-                    if(this.bt == false){
-                    Toast({
-                        message: "请使用余额支付",
-                    });
-                }else{
-                    this.axios.post(API_URL + 'Home/AlipayMobile/balancePay',qs.stringify({
-                    app_user_id:sessionStorage.getItem('user_ID'),
-                    order_id:this.$store.state.order_number
-                })).then((res) => {
-                    if(res.data.msg == "支付成功"){
-                        Toast("支付成功");
-                        this.$router.push({
-                            name: 'orderWrap',
-                            params: {
-                                status: 0
+				if(this.btns == true)return
+                this.btns = true
+                   if(this.$route.params.id == 3){
+                   	if(this.integral<=0){
+                   		Toast("当前积分不足,无法兑换");
+                   	}else{
+                        this.axios.post(this.$httpConfig.confirmPay,qs.stringify({
+	                        orderId:this.orderId,
+                        })).then((res) => {
+                        	if(res.data.status==10001){
+					                		this.$router.push('/LogIn');
+					                }else {
+                            if(res.data.status == 1){
+                                Toast({message: "订单支付成功"});
+                                   let that = this;
+                                    setTimeout(function(){
+                                       that.btns = false;
+                                       that.$router.push({
+                                           name: 'intOrder',
+                                       });
+                                    },1000)
+                            }else{
+                                this.btns = false;
+                                 Toast({
+                                    message: res.data.msg
+                                });
                             }
+                          }
+                        }).catch((err) => {
                         });
-                    }else{
-                        Toast({
-                            message: res.data.msg
+                   	}
+                   }else if(this.$route.params.id == 1){
+                       if(this.bt == false){
+                       Toast({
+                           message: "请使用余额支付",
+                      	 });
+                       }else{
+                       	this.axios.post(this.$httpConfig.balancePay,qs.stringify({
+	                        id:this.orderID,
+                        })).then((res) => {
+                        	if(res.data.status==10001){
+					                		this.$router.push('/LogIn');
+					                }else {
+                          } 
+                        }).catch((err) => {
+                            console.log(err);
                         });
-                    }
-                }).catch((err) => {
-                    console.log(err);
-                });
-                }
-                } 
+                       }
+                   } 
             }
         },
-        mounted(){
-            
-        }
     }
 </script>
 <style lang="less" scoped>
     .form-btn{
         width:7.1rem;
         height:.9rem;
-        background: #d0111b;
+        background: #D19E29;
         border:none;
         border-radius:20px;
         color:#fff;

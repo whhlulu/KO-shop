@@ -1,12 +1,17 @@
 <template>
     <div>
-        <div class="hd clearfix">
-            <div class="title fl">{{text}}</div>
-            <span class="more fr" @click="tolin">更多<em><i></i><b></b></em></span>
+        <div class="hd clearfix" v-for="item in text">
+        	<div class="top">
+        		 <div class="title fl" >{{item.class_name}}</div>
+           		 <span class="more fr" @click="tolin">更多<em><i></i><b></b></em></span>
+        	</div>
+            <img class="banner" :key="item.id" :src="URL+item.pic_url"/>
+            <hot-goods :data="text.goods"></hot-goods>
         </div>
     </div>
 </template>
 <script>
+	import hotGoods from './hotGoods'; //头部内容
     export default {
         name : 'conHeader',
         data(){
@@ -21,26 +26,30 @@
         },
         methods:{
             tolin(){
-                if(this.toLink.indexOf('/') >= 0){
-                    this.$router.push(this.toLink);
-                }else{
+//              if(this.toLink.indexOf('/') >= 0){
+//                  this.$router.push(this.toLink);
+//              }else{
                     this.$router.push({
-                        name:'comList',
+                         path: '/latestProm',
                         params:{
-                            id:this.toLink,
-                            status:'m'
+                            status:this.status
                         }
                     });
-                }
+//              }
             }
+        },
+         components: {
+          	'hot-goods':hotGoods
+           
         }
     }
 </script>
 <style scoped lang="less">
     .hd{
-        padding:.2rem;
+       /* padding:.2rem;*/
+      .top{padding:.2rem;overflow: hidden;}
         .title{
-            border-left:3px solid #f02b2b;
+            border-left:3px solid #E8C441;
             padding-left:.2rem;
             font-size:.32rem;
             color:#111111;
@@ -73,6 +82,10 @@
                     top:0;
                 }
             }
+        }
+        .banner{
+            width: 7.5rem;
+            height: 3.75rem;
         }
     }
 </style>

@@ -1,14 +1,14 @@
 <template>
     <div>
         <ul class="list-wrap" v-if="data">
-            <li class="clearfix" v-for="(item,index) in data" :key="item.id" @click="tolink(item)">
-                <img v-lazy="URL + item.pic_url" class="fl">
+            <li class="clearfix" v-for="item in data" :key="item.id" @click="tolink(item)">
+                <img v-lazy="URL + item.image" class="fl">
                 <div class="list-text fl">
                     <p class="text">{{item.title}}</p>
                     <p class="new-price" v-if="integral"><span>{{item.integral}}&nbsp;<em>积分</em></span></p>
                     <p class="new-price" v-if="!integral">￥<span>{{item.price_market}}</span></p>
                     <p class="status" v-if="!integral"><span>已有{{item.comment}}条评论</span><span>{{item.trade}}笔交易成功</span></p>
-                    <p class="status" v-if="integral" style="padding-top:.2rem;"><span>市场参考价：{{item.price_market}}元</span></p>
+                    <p class="status" v-if="!integral" style="padding-top:.2rem;"><span>市场参考价：{{item.price_market}}元</span></p>
                 </div>
             </li>
         </ul>
@@ -18,6 +18,7 @@
     </div>
 </template>
 <script>
+   import qs from 'qs';
     export default {
         name:'searchList',
         data(){
@@ -35,14 +36,18 @@
                 return this.integral
             }
         },
+        created(){
+        	
+        },
         methods:{
             tolink(item){
-                if(item.goods_id){
+                if(item.id){
                     this.$router.push({
-                        name:'product',
+                        name:'integralDetail',
                         params:{
-                            id:item.goods_id,
-                            status:2
+                            id:item.id,
+                            status:2,//积分
+                            money:item.money
                         }
                     });
                 }else{
@@ -50,7 +55,7 @@
                         name:'product',
                         params:{
                             id:item.id,
-                            status:1
+                            status:1//商品订单
                         }
                     });
                 }
@@ -83,8 +88,6 @@
                     font-size:.32rem;
                     color:#333;
                     line-height:.45rem;
-                    padding-top:.1rem;
-                    height:.9rem;
                     overflow:hidden; 
                     text-overflow:ellipsis;
                     display:-webkit-box; 
@@ -94,7 +97,7 @@
                 .new-price{
                     font-size:.32rem;
                     color:#f23030;
-                    padding-top:.3rem;
+                    padding-top:.1rem;
                     span{
                         font-size:.4rem;
                         font-weight:bold;

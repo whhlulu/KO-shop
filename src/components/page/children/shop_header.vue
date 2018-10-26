@@ -38,7 +38,7 @@
     import qs from 'qs';
     import { MessageBox,Toast } from 'mint-ui';
     export default {
-        name : 'header',
+        name : 'shop-header',
         data(){
             return {
                 sta:false,
@@ -67,12 +67,23 @@
         },
         methods:{
             btnGo(){
-                this.$router.go(-1);
-            },
+//							switch (this.text){
+//								case '积分商品详情':
+//									{
+//										this.$router.push({
+//					             name:'IntegralMall'
+//					          });
+//									}
+//									break;
+//								default:
+									this.$router.go(-1);
+//									break;
+//							}
+					},
             toCart(){
-                sessionStorage.setItem('router_index', 2);
+//              sessionStorage.setItem('router_index', 2);
                 this.$router.push({
-                    path:'/cart'
+                    name: 'Cart'
                 });
             },
             toLink(link){
@@ -82,8 +93,7 @@
             },
             btndl(){
                 MessageBox.confirm('确定执行此操作?').then(action => {
-                    this.axios.post(API_URL + 'Home/Pcenter/addressde',qs.stringify({
-                        app_user_id:sessionStorage.getItem('user_ID'),
+                    this.axios.post(this.$httpConfig.addressDelete,qs.stringify({
                         id:this.id
                     })).then((res) => {
                         Toast(res.data.msg);
@@ -95,7 +105,7 @@
             },
             del(){
                 MessageBox.confirm('确定清空所有足迹?').then(action => {
-                    this.axios.post(API_URL + 'Home/Pcenter/deleteFootprint').then((res) => {
+                    this.axios.post(this.$httpConfig.deleteFootprint).then((res) => {
                         this.$store.state.footprint = '';
                         Toast('成功清除所有足迹快去逛逛吧！');
                     }).catch((err) => {
@@ -139,7 +149,7 @@
     .header {
         width: 100%;
         height: .62rem;
-        background: #d0111b;
+        background: #C79A01;
         padding: .16rem 0;
         text-align:center;
         position:relative;
@@ -228,7 +238,7 @@
                 right:.15rem;
                 top:.8rem;
                 border-radius:5px;
-                z-index:2;
+                z-index:99999;
                 .polygon{
                     width: .4rem;
                     height: .4rem;
@@ -346,7 +356,6 @@
                 border:.06rem solid #fff;
                 border-radius:50%;
                 box-sizing:border-box;
-                background:#fd4f4b;
                 margin-left:.1rem;
                 margin-top:.44rem;
             }
