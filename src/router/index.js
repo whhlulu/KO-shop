@@ -5,7 +5,9 @@ import Router from 'vue-router'
 //资讯部分
 const KOsubject = r => require(['@/components/KOsubject'], r); //资讯入口入口
 const KOHome = r => require(['@/components/KOhome/KOhome'], r); //主页
-const KOlist = r => require(['@/components/KOpage/KOlist'], r); //资讯列表
+const KOlist = r => require(['@/components/KOpage/KOList'], r); //资讯列表
+// 资讯部分-个人中心
+const KOperson = r => require(['@/components/KOperson/PersonalCenter'], r); //个人中心
 
 // 发票
 const documents = r => require(['@/components/documents/documents'], r); //发票
@@ -190,17 +192,17 @@ const router = new Router({
                         name: 'KOhome',
                         component: KOHome
                     },
+                    { //资讯列表
+                        path: '/KOlist/:type',
+                        name: 'KOlist',
+                        component: KOlist
+                    },
                     { //个人中心
-                        path: '/person',
-                        name: 'person',
-                        component: person
+                        path: '/KOperson',
+                        name: 'KOperson',
+                        component: KOperson
                     }
                 ]
-            },
-            { //资讯列表
-                path: '/KOlist/:type',
-                name: 'KOlist',
-                component: KOlist
             },
             {
                 path: '',

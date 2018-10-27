@@ -1,8 +1,5 @@
 <template>
     <div class="KOhome">
-        <!--<div class="load-wrap" v-show="$store.state.load_wrap" @touchmove.prevent>-->
-            <!--<mt-spinner type="triple-bounce" color="rgb(38, 162, 255)"></mt-spinner>-->
-        <!--</div>-->
         <div v-title data-title="主页">主页</div>
         <home-header :userName="getData"></home-header>
         <mt-swipe :auto="3000">
@@ -11,15 +8,14 @@
             </mt-swipe-item>
         </mt-swipe>
         <news-flash :nav="$store.state.fenlei"></news-flash>
-        <whole-order></whole-order>
+        <new-list-scroll></new-list-scroll>
         <to-Top></to-Top>
     </div>
 </template>
 <script>
     import HomeHeader from './children/Header';
     import NewsFlash from './children/newsFlash';
-    import hotGoods from './children/hotGoods';
-    import wholeOrder from '../KOpage/KOwhole.vue'
+    import newListScroll from '../KOpage/newListScroll.vue'
     import toTop from '@/components/page/toTop'; //回到顶部
     export default {
         name: 'KOhome',
@@ -71,8 +67,7 @@
         components: {
             HomeHeader,
             NewsFlash,
-            hotGoods,
-            wholeOrder,
+            newListScroll,
             toTop
         }
     }

@@ -63,9 +63,9 @@
 	</div>
 </template>
 <script>
-	import orderHeader from '@/components/page/children/header.vue';
 	import { MessageBox, Toast } from 'mint-ui';
-	import Shopsn from '@/components/page/Shopsn.vue';
+    import orderHeader from '@/components/page/children/header.vue';
+    import Shopsn from '@/components/page/Shopsn.vue';
 	import toTop from '@/components/page/toTop.vue';
 	import qs from 'qs';
 	export default {

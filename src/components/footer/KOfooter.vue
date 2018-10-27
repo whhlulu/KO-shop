@@ -1,7 +1,7 @@
 <template>
     <div class="foot2017">
         <ul class="footer clearfix">
-            <li class="fl" :class="{isSelected:(index+101) == parseInt(isClass)}" v-for="(item,index) in tabbar.font" :key="item.id" @click="tab(index)">
+            <li class="fl" :class="{isSelected:index+101 == parseInt(isClass)}" v-for="(item,index) in tabbar.font" :key="item.id" @click="tab(index)">
                 <div class="icon"><img :src="tabbar.Icon[index]"></div>
                 <div class="icon active"><img :src="tabbar.isIcon[index]"></div>
                 <div class="font">{{item}}</div>
@@ -11,14 +11,14 @@
 </template>
 <script>
     export default {
-        name: 'foote',
+        name: 'page-footer',
         data() {
             return {
                 isClass:sessionStorage.getItem('router_index'),
                 tabbar:{
-                    isIcon:[require('@/assets/tab_icon_home-active.png'),require('@/assets/tab_icon_cart_active.png'),require('@/assets/tab_icon_per_active.png')],
-                    Icon:[require('@/assets/tab_icon_home.png'),require('@/assets/tab_icon_cart.png'),require('@/assets/tab_icon_per.png')],
-                    font:['小课堂','商城','我的']
+                    isIcon:[require('@/assets/images/home_icon_active.png'),require('@/assets/images/class_icon_active.png'),require('@/assets/images/cart_icon_active.png'),require('@/assets/images/per_icon_active.png')],
+                    Icon:[require('@/assets/images/home_icon.png'),require('@/assets/images/class_icon.png'),require('@/assets/images/cart_icon.png'),require('@/assets/images/per_icon.png')],
+                    font:['首页','小课堂','商城','我的']
                 }
             }
         },
@@ -32,46 +32,28 @@
                         break;
                     case 1:
                         this.$router.push({
-                            path:'/home'
+                            path:'/KOlist/0'
                         });
                         break;
                     case 2:
                         this.$router.push({
-                            path:'/person'
+                            path:'/home'
                         });
                         break;
-//                       if(!sessionStorage.getItem('user_ID')){
-//                                this.$router.push({
-//                                path:'/LogoIn'
-//                            });
-//                            return
-//                        }else{
-//                            this.$router.push({
-//                                path:'/person'
-//                            });
-//                        break;
-//                        }
-                    }
+                    case 3:
+                        this.$router.push({
+                            path:'/KOperson'
+                        });
+                        break;
                 }
-            },
+            }
+        },
         watch:{
             '$route'(to,from){
-                // if(to.path == '/person'){
-                //     if(sessionStorage.getItem('user_ID')){
-                //         this.$router.push({
-                //             path:'/person'
-                //         });
-                //     }else{
-                //         this.$router.push({
-                //             path:'/LogoIn'
-                //         });
-                //     }
-                // }
                 this.isClass = sessionStorage.getItem('router_index');
             }
         },
         created(){
-            
         }
     }
 </script>
@@ -86,22 +68,27 @@
             bottom:0;
             left:0;
             background:#fff;
-            border-top:3px solid #fa6a2d;
+
             z-index:2;
             background:#fff;
             box-shadow: border-box;
+            box-sizing: border-box;
             z-index:99999999;
             li{
-                width:33%;
+                width:25%;
                 text-align:center;
+
                 .font{
                     font-size:.2rem;
                     color:#333;
+                    padding-bottom:5/100rem;
+                    display: inline-block;
                 }
                 .icon{
-                    height:.65rem;
+                    height:.55rem;
                     position:relative;
                     display:block;
+                    border-top:3px solid #313133;
                     img{
                         position:absolute;
                         left:0;
@@ -109,24 +96,47 @@
                         bottom:0;
                         right:0;
                         margin:auto;
-                        width:.39rem;
-                        height:.37rem;
                     }
                 }
                 .icon.active{
                     display:none;
+                    border-top:3px solid #D09D2A;
                 }
             }
             li.isSelected{
                 .font{
-                    color:#f9781e;
+                    color:#D09D2A;
                 }
                 .icon.active{
                     display:block;
                 }
-                
+
                 .icon{
                     display:none;
+                }
+            }
+            li:nth-child(1){
+                img{
+                    width:.39rem;
+                    height:.37rem;
+                }
+            }
+            li:nth-child(2){
+                img{
+                    width:.43rem;
+                    height:.32rem;
+                }
+            }
+            li:nth-child(3){
+                img{
+                    width:.54rem;
+                    height:.41rem;
+                }
+            }
+            li:nth-child(4){
+                img{
+                    width:.35rem;
+                    height:.4rem;
                 }
             }
         }

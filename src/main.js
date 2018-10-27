@@ -94,13 +94,13 @@ router.beforeEach((to, from, next) => {
     // Indicator.open('初始化...');
     switch (to.name) {
         case 'KOhome':
-        {
             sessionStorage.setItem('router_index', 101);
-            document.title = "小课堂";
-        }
+            break;
+        case 'KOlist':
+            sessionStorage.setItem('router_index', 102);
             break;
         case 'KOperson':
-            sessionStorage.setItem('router_index', 102);
+            sessionStorage.setItem('router_index', 104);
             break;
         case 'home':
             {

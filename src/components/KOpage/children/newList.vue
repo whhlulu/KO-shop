@@ -1,0 +1,78 @@
+<template>
+    <div>
+        <div class="new-all" v-for="(item,index) in newList" :key="item.id">
+            <div class="new">
+                <img :src="item.pic_url" class="fl" @click="toDetails(item,text,index)">
+                <div class="fl words" @click="toDetails(item,index)">
+                    <p class="text">{{item.title}}</p>
+                    <p class="clearfix text company">{{item.company}}</p>
+                </div>
+            </div>
+            <div class="opt">
+                <span class="like fl" :class="{active:item.like}" @click="seat()"></span>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    export default {
+        name: 'newList',
+        data(){
+            return {}
+        },
+        props: ["newList"],
+        components: {}
+    }
+</script>
+<style lang="less" scoped>
+    .new-all{
+        position: relative;
+        background: #fff;
+        padding: .13rem .2rem;
+        margin-bottom: 6px;
+        .new {
+            height: 1.46rem;
+            img {
+                width: 1.46rem;
+                height: 1.46rem;
+            }
+            .words {
+                width: 5.24rem;
+                .text {
+                    padding: 0 .2rem;
+                    font-size: .32rem;
+                    color: #333;
+                    line-height: .45rem;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                }
+                .company {
+                    font-size: .24rem;
+                    line-height: .24rem;
+                    color: #B6B4B5;
+                    padding-top: .2rem;
+                    padding-left: .2rem;
+                }
+            }
+        }
+        .opt {
+            height: .48rem;
+            position: relative;
+            .like {
+                position: absolute;
+                right: .2rem;
+                width: .52rem;
+                height: .48rem;
+                background: url(../../../assets/images/xinxin.png) no-repeat;
+                background-size: 100% 100%;
+            }
+            .like.active {
+                background: url(../../../assets/images/xu_xinxin.png) no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+    }
+
+</style>

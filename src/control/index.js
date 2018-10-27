@@ -4,6 +4,14 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = { //创建数据仓库
+    //资讯相关-start
+    //首页推荐数据
+    homeNewList: [],
+    //列表页相关数据
+    KOlistCurType:'1',
+    //END
+
+
     /*
         数据
     */
