@@ -57,12 +57,12 @@ Vue.prototype.$constant = constant;
 Vue.prototype.$httpConfig = httpConfig;
 // import { Spinner } from 'mint-ui'
 import '../config/globle.js' //常量
-const URl = 'http://center.shopsn.cn',
-    load_wrap = true;
+const load_wrap = true;
 Vue.config.productionTip = false;
 axios.defaults.withCredentials = true; //让ajax携带cookie
 Vue.prototype.axios = axios;
-Vue.prototype.URL = URl;
+Vue.prototype.URL = window.URL;
+Vue.prototype.IMG_URL = window.IMG_URL;
 
 // Element
 import ElementUI from 'element-ui'

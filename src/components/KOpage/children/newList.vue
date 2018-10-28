@@ -1,15 +1,22 @@
 <template>
     <div>
         <div class="new-all" v-for="(item,index) in newList" :key="item.id">
-            <div class="new">
-                <img :src="item.pic_url" class="fl" @click="toDetails(item,text,index)">
-                <div class="fl words" @click="toDetails(item,index)">
-                    <p class="text">{{item.title}}</p>
-                    <p class="clearfix text company">{{item.company}}</p>
+            <div v-if="item.news_type==1">
+                <div class="new">
+                    <img v-if="item.video" :src="item.video" class="fl" @click="toDetails(item)">
+                    <div class="fl words" :class="{allspan:!item.video}" @click="toDetails(item)">
+                        <p class="text">{{item.name}}</p>
+                        <p class="clearfix text company">{{item.intro}}</p>
+                    </div>
                 </div>
+                <!--<div class="opt">-->
+                <!--<span class="like fl" :class="{active:item.like}" @click="seat()"></span>-->
+                <!--</div>-->
             </div>
-            <div class="opt">
-                <span class="like fl" :class="{active:item.like}" @click="seat()"></span>
+            <div v-if="item.news_type==2">
+                <video class="my-video" src="https://video.sina.cn/news/2018-10-28/detail-ihnaivxp9385722.d.html?vt=4&cid=37766" controls="controls">
+                    your browser does not support the video tag
+                </video>
             </div>
         </div>
     </div>
@@ -30,11 +37,17 @@
         background: #fff;
         padding: .13rem .2rem;
         margin-bottom: 6px;
+        .my-video{
+            width: 100%;
+        }
         .new {
             height: 1.46rem;
             img {
                 width: 1.46rem;
                 height: 1.46rem;
+            }
+            .words.allspan{
+                width: 6.8rem;
             }
             .words {
                 width: 5.24rem;

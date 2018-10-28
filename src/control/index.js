@@ -5,7 +5,9 @@ Vue.use(Vuex);
 
 const state = { //创建数据仓库
     //资讯相关-start
-    //首页推荐数据
+    //首页
+    KOhome_data: '', //轮播数据来源-移动端网页banner
+    categoryLists:[],
     homeNewList: [],
     //列表页相关数据
     KOlistCurType:'1',

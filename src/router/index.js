@@ -8,6 +8,8 @@ const KOHome = r => require(['@/components/KOhome/KOhome'], r); //主页
 const KOlist = r => require(['@/components/KOpage/KOList'], r); //资讯列表
 // 资讯部分-个人中心
 const KOperson = r => require(['@/components/KOperson/PersonalCenter'], r); //个人中心
+const KOListCollect = r => require(['@/components/KOperson/KOListCollect'], r); //我的收藏
+const KOListFoot = r => require(['@/components/KOperson/KOListFoot'], r); //我的足迹
 
 // 发票
 const documents = r => require(['@/components/documents/documents'], r); //发票
@@ -203,6 +205,16 @@ const router = new Router({
                         component: KOperson
                     }
                 ]
+            },
+            { //我的收藏
+                path: '/KOListCollect',
+                name: 'KOListCollect',
+                component: KOListCollect
+            },
+            { //我的收藏
+                path: '/KOListFoot',
+                name: 'KOListFoot',
+                component: KOListFoot
             },
             {
                 path: '',

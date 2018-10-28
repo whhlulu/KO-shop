@@ -4,7 +4,7 @@
         <div class="comm-null" v-if="$store.state.homeNewList.length===0">
             <div class="con-wrap text-center">
                 <img src="../../assets/null_com.png">
-                <p>暂时没有商品</p>
+                <p>暂时没有资讯</p>
             </div>
         </div>
         <p class="page-infinite-loading" v-show="$store.state.KOhomequeryLoading">
@@ -28,10 +28,10 @@
         components: {
             newList,
         },
-        mounted() {
-//            document.body.scrollTop = 0;
-            this.$store.state.KOhomepage = 1;
-            this.$store.state.KOhomequeryLoading = false;
+        created() {
+            //document.body.scrollTop = 0;
+            this.$store.state.KOhomepage = 1; //初始页
+            this.$store.state.KOhomequeryLoading = false; //整个加载的框
             this.$store.state.KOhomeallLoaded = false;
             this.$store.state.KOhomemoreLoading = false;
             this.$store.state.KOhomeloading = false;
@@ -51,53 +51,38 @@
                         // 如果开关打开则加载数据
                         if (this_.$store.state.KOhomeslidingSwitch == true) {
                             this_.$store.state.KOhomeslidingSwitch = false;
-                            if (this_.$store.state.KOhomeallLoaded === true) {
+                            if (this_.$store.state.KOhomeallLoaded === true) { //暂无更多
                                 return false;
                             } else {
                                 this_.$store.state.KOhomepage++;
-                                this_.$store.state.KOhomequeryLoading = true;
-                                this_.$store.state.KOhomemoreLoading = true;
-                                this_.$store.state.KOhomeloading = true;
-
-                                setTimeout(() => {
+                                this_.$store.state.KOhomequeryLoading = true; // 整个加载的框
+                                this_.$store.state.KOhomemoreLoading = true; //转圈动画
+                                this_.$store.state.KOhomeloading = true; //加载中
+                                this.axios({
+                                    url:`${this.$httpConfig.articleLists}/page/${this_.$store.state.KOhomepage}`,
+                                    method:'get',
+                                    params:{
+                                        app_user_id:sessionStorage.getItem('user_ID'),
+                                    }
+                                }).then((res) => {
                                     this_.$store.state.KOhomeslidingSwitch = true;
-                                    var data = [
-                                        {id: (n + 1), title: '1',},
-                                        {id: (n + 2), title: '2',},
-                                        {id: (n + 3), title: '3',},
-                                        {id: (n + 4), title: '4',},
-                                        {id: (n + 5), title: '5',},
-                                    ]
+                                    this_.$store.state.KOhomequeryLoading = false; // 整个加载的框
+                                    var data = res.data.data.records;
                                     data.forEach(function (val, index) {
                                         this_.$store.state.homeNewList.push(val);
                                     });
-                                    n = n + 20;
-                                }, 2000)
-
-//                                this.axios({
-//                                    url:API_URL + 'Home/Order/myOrder',
-//                                    method:'get',
-//                                    params:{
-//                                        app_user_id:sessionStorage.getItem('user_ID'),
-//                                        order_status:this.$store.state.order_status,
-//                                        p:this_.$store.state.page
-//                                    }
-//                                }).then((res) => {
-//                                    this_.$store.state.slidingSwitch = true;
-//                                    if(res.data.status == 0){
-//                                        this_.$store.state.moreLoading = false;
-//                                        this_.$store.state.allLoaded = true;
-//                                        this_.$store.state.loading = false;
-//                                        return false;
-//                                    }
-//                                    res.data.data.forEach(function(val,index){
-//                                        this_.$store.state.order.push(val);
-//                                        });
-//                                }).catch((err) => {
-//                                    console.log(err);
-//                                });
+                                    if (data.length < 15) {
+                                        this_.$store.state.KOhomeno_data = true;
+                                        this_.$store.state.KOhomequeryLoading = true; //整个加载的框
+                                        this_.$store.state.KOhomemoreLoading = false; //转圈动画
+                                        this_.$store.state.KOhomeloading = false; //加载中
+                                        this_.$store.state.KOhomeallLoaded = true; //暂无更多
+                                    }
+                                }).catch((err) => {
+                                    Toast('获取资讯异常')
+                                    console.log(err);
+                                });
                             }
-
                         }
                     }
                 }
@@ -110,39 +95,29 @@
         methods: {
             getOrderList(){
                 var this_ = this;
-                var data = [
-                    {id: 1, title: '爱仕达1',pic_url:'',state:'',company:'百度新闻是包含海量资讯的新闻服务平台,真实反映每时每刻的新闻热点。您可以搜索新闻事件、'},
-                    {id: 2, title: 'sasd2',pic_url:'',state:'',company:'ssss'},
-                    {id: 3, title: 'asd3',pic_url:'',state:'',company:'ssss'},
-                    {id: 4, title: '4',pic_url:'',state:'',like:true},
-                    {id: 5, title: '5',pic_url:'',state:'',like:false},
-                    {id: 6, title: '5',pic_url:'',state:''},
-                    {id: 7, title: '5',pic_url:'',state:''},
-                    {id: 8, title: 'asd5',pic_url:'',state:''},
-                    {id: 9, title: 'asd5',pic_url:'',state:''},
-                    {id: 10, title: 'asd5',pic_url:'',state:''},
-                ]
-                data.forEach(function (val, index) {
-                    this_.$store.state.homeNewList.push(val);
+                this_.$store.state.homeNewList=[];
+                this.axios({
+                    url:`${this.$httpConfig.articleLists}/page/${this_.$store.state.KOhomepage}`,
+                    method:'get',
+                    params:{
+                        app_user_id:sessionStorage.getItem('user_ID'),
+                    }
+                }).then((res) => {
+                    var data = res.data.data.records;
+                    data.forEach(function (val, index) {
+                        this_.$store.state.homeNewList.push(val);
+                    });
+                    if (data.length < 15) {
+                        this.$store.state.KOhomeno_data = true;
+                        this.$store.state.KOhomequeryLoading = true; //整个加载的框
+                        this.$store.state.KOhomemoreLoading = false; //转圈动画
+                        this_.$store.state.KOhomeloading = false; //加载中
+                        this.$store.state.KOhomeallLoaded = true; //暂无更多
+                    }
+                }).catch((err) => {
+                    Toast('获取资讯异常')
+                    console.log(err);
                 });
-                if (data.length < 10) {
-                    this.$store.state.KOhomeno_data = true;
-                }
-//                this.axios({
-//                        url:API_URL + 'Home/Order/myOrder',
-//                        method:'get',
-//                        params:{
-//                            app_user_id:sessionStorage.getItem('user_ID'),
-//                            order_status:this.$store.state.order_status,
-//                            p:this.$store.state.page
-//                        }
-//                    }).then((res) => {
-//                        this.$store.state.order = res.data.data;
-//                        if(res.data.data.length<10){this.$store.state.no_data = true;}
-//                        this.$store.state.order_load_wrap = false;
-//                    }).catch((err) => {
-//                        console.log(err);
-//                    });
             },
         }
     }

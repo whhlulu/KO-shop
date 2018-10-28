@@ -2,8 +2,8 @@
     <div class="flash-wrap">
         <ul class="flash-dd clearfix">
             <li class="fl" v-for="(n,index) in nav" :key="n.id" @click="link(n.id)">
-                    <img v-lazy="n.nav_img">
-                <p>{{n.nav_titile}}</p>
+                    <img v-lazy="IMG_URL + n.pic_url">
+                <p>{{n.name}}</p>
             </li>
         </ul>
     </div>
@@ -21,9 +21,9 @@
         mounted(){
         },
         methods: {
-            link(index){
+            link(id){
                 this.$router.push({
-                    path:`/KOlist/${index}`
+                    path:`/KOlist/${id}`
                 });
             }
         }

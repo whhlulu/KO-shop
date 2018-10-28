@@ -1,4 +1,4 @@
-window.API_URL = 'http://mapi.shopsn.cn/';
+
 
 (function(w) {
 

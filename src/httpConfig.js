@@ -1,8 +1,11 @@
 //const request =  "http://192.168.123.6/shopsn_b2b2c_mobile_api/index.php/"
 //const request =  "http://b2b2c.zybv.cn/"
 //const request =  "http://api.shopsn.net/"
-const request = 'http://mapi.shopsn.cn/';
-const imgRequest = 'http://center.shopsn.cn/';
+window.API_URL = 'http://mapi.youyoulegou.cn/';
+window.IMG_URL = 'http://center.youyoulegou.cn/';
+window.URL = 'http://center.shopsn.cn/';
+const request = window.API_URL;
+const imgRequest = window.URL;
 
 const userModuleIndex = "admin.php/";
 const uploadImage = 'upload.php/';
