@@ -236,10 +236,7 @@
 			getEnterpriseProgress(){
 				this.axios.post(this.$httpConfig.CompanyStoreAduitProgress, QS.stringify({
 				})).then((res) => {
-					if (res.data.status == 10001) {
-						this.$router.push('/LogIn');
-
-					}else if(res.data.status == 1){
+					if(res.data.status == 1){
 						this.enterpriseData = res.data.data;
 					}
 				}).catch((err) => {
@@ -250,10 +247,7 @@
 			getPersonalProgress(){
 				this.axios.post(this.$httpConfig.PersonStoreAduitProgress, QS.stringify({
 				})).then((res) => {
-					if (res.data.status == 10001) {
-						this.$router.push('/LogIn');
-
-					}else if(res.data.status == 1){
+					if(res.data.status == 1){
 						this.personalData = res.data.data;
 					}
 				}).catch((err) => {

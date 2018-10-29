@@ -530,9 +530,6 @@
 					});
 			},
 			toOrder() { //去结算
-				sessionStorage.removeItem('invoiceSign');
-				sessionStorage.removeItem('invoiceGroup');
-				sessionStorage.removeItem('invoiceInit');
 				this.$store.state.invoice = false;
 				this.$store.state.rise = null;
 				this.$store.state.type = null;

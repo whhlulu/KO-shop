@@ -69,7 +69,7 @@
 		<ul class="per-center">
 			<p class="little-hint"><i>*</i> 绑定分类后才有对应的分类规格</p>
 			<li class="listHead" v-for="(item,index) in goods_class" :key="item.id">
-				<i v-if="goods_class.length !=1" class="delete" @click="del(index)"></i>
+				<span v-if="goods_class.length !=1" class="delete" @click="del(index)">x</span>
 				<a href="javascript:;" @click="management(index)">
 					<span> 经营分类:</span>
 					<span class="content">{{item.content}}</span>
@@ -445,7 +445,7 @@
 					});
 					return;
 				}
-				this.axios.post(this.$httpConfig.perfectInfo, QS.stringify({
+				this.axios.post(this.$httpConfig.enterRunInfo, QS.stringify({
 					store_id: sessionStorage.getItem('shopPer_ID'),
 					shop_account: this.shop_account,
 					level_id: this.level_id,
@@ -517,8 +517,10 @@
 			margin-bottom: 10/100rem;
 			position: relative;
 			.delete{
-				background: url(../../../assets/delect01.png) no-repeat;
-				background-size: 100% 100%;
+				text-align: center;
+				background: #D19E29;
+				color: #fff;
+				border-radius:.3rem;
 				display: block;
 				width: .5rem;
 				height: .5rem;

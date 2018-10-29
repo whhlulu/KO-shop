@@ -2,15 +2,6 @@ import Vue from 'vue'
 import App from '@/App'
 import Router from 'vue-router'
 
-//资讯部分
-const KOsubject = r => require(['@/components/KOsubject'], r); //资讯入口入口
-const KOHome = r => require(['@/components/KOhome/KOhome'], r); //主页
-const KOlist = r => require(['@/components/KOpage/KOList'], r); //资讯列表
-// 资讯部分-个人中心
-const KOperson = r => require(['@/components/KOperson/PersonalCenter'], r); //个人中心
-const KOListCollect = r => require(['@/components/KOperson/KOListCollect'], r); //我的收藏
-const KOListFoot = r => require(['@/components/KOperson/KOListFoot'], r); //我的足迹
-
 // 发票
 const documents = r => require(['@/components/documents/documents'], r); //发票
 const IncreaseDoc = r => require(['@/components/documents/IncreaseDoc'], r); //增资发票
@@ -115,7 +106,6 @@ const logInBind = r => require(['@/components/logIn/logInBind'], r); //绑定
 const authLogin = r => require(['@/components/logIn/children/authLogin'], r); //授权成功
 const authError = r => require(['@/components/logIn/authError'], r); //授权失败
 const reset = r => require(['@/components/logIn/resetPassword'], r); // 重置密码
-const phoneVerify = r => require(['@/components/logIn/phoneVerify'], r); // 修改密码手机验证
 
 // 主页
 const Home = r => require(['@/components/home/home'], r); //主页
@@ -123,7 +113,6 @@ const Class = r => require(['@/components/home/classification'], r); //分类
 
 // page页
 const prTab = r => require(['@/components/page/children/tab'], r); //商品详情图
-const answerDetails = r => require(['@/components/page/children/answerDetails'], r); //商品咨询详情
 const list = r => require(['@/components/page/list'], r); //商品列表
 const listHomeMore = r => require(['@/components/page/listHomeMore'], r); //商品列表
 const integralTab = r => require(['@/components/page/children/integralTab'], r); //商品详情图
@@ -145,7 +134,7 @@ const auctionList = r => require(['@/components/auction/auctionList'], r) // 抢
 // 个人入驻
 const checkProadd = r => require(['@/components/shopOpen/perShop/addInformation'], r); //填写个人资料
 const checkProIdInfor = r => require(['@/components/shopOpen/perShop/proId'], r); //填写身份证
-const checkProBankInfor = r => require(['@/components/shopOpen/perShop/proBank'], r); //填写银行打款信息（挪到个人资料处了）
+const checkProBankInfor = r => require(['@/components/shopOpen/perShop/proBank'], r); //填写身份证
 const checkProBusinessInfor = r => require(['@/components/shopOpen/perShop/Business'], r); //提交
 
 // 企业入驻
@@ -176,46 +165,7 @@ const router = new Router({
         path: '/',
         component: App, //顶层路由，对应index.html
         children: [ //二级路由。对应App.vue
-            {
-                path: '',
-                redirect: '/KO'
-            },
-            {
-                path: '/KO',
-                name: 'KO',
-                component: KOsubject,
-                children: [ //地址为/subject跳转home
-                    {
-                        path: '/KO',
-                        redirect: '/KOhome'
-                    },
-                    { //主页
-                        path: '/KOhome',
-                        name: 'KOhome',
-                        component: KOHome
-                    },
-                    { //资讯列表
-                        path: '/KOlist/:type',
-                        name: 'KOlist',
-                        component: KOlist
-                    },
-                    { //个人中心
-                        path: '/KOperson',
-                        name: 'KOperson',
-                        component: KOperson
-                    }
-                ]
-            },
-            { //我的收藏
-                path: '/KOListCollect',
-                name: 'KOListCollect',
-                component: KOListCollect
-            },
-            { //我的收藏
-                path: '/KOListFoot',
-                name: 'KOListFoot',
-                component: KOListFoot
-            },
+            //地址为空时跳转home页面
             {
                 path: '',
                 redirect: '/subject'
@@ -357,14 +307,9 @@ const router = new Router({
                 component: feedback
             },
             { //商品详情Tbg
-                path: '/tab/:id/:p_id/',
+                path: '/tab/:id',
                 name: 'tab',
                 component: prTab
-            },
-            { //商品咨询详情
-                path: '/answerDetails',
-                name: 'answerDetails',
-                component: answerDetails
             },
             { //积分商品详情Tbg
                 path: '/integralTab/:id',
@@ -468,7 +413,7 @@ const router = new Router({
                 component: CashierOpenShopPay
             },
             { // 积分商城支付
-                path: '/CashierIntegral/:id/:integral/:money',
+                path: '/CashierIntegral/:id/:number',
                 name: 'CashierIntegral',
                 component: CashierIntegral
             },
@@ -543,7 +488,7 @@ const router = new Router({
                 component: modifyPassword
             },
             { //发票信息
-                path: '/invoice/:status/:id',
+                path: '/invoice/:status',
                 name: 'invoice',
                 component: invoice
             },
@@ -591,11 +536,6 @@ const router = new Router({
                 path: '/reset',
                 name: 'reset',
                 component: reset
-            },
-            { //修改密码手机验证
-                path: '/phoneVerify',
-                name: 'phoneVerify',
-                component: phoneVerify
             },
             { //个人资料
                 path: '/personal',
@@ -804,6 +744,6 @@ const router = new Router({
             },
 
         ]
-    }],
+    }]
 });
 export default router;

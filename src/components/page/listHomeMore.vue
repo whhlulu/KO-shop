@@ -118,6 +118,7 @@
 						sort_type:this.sort_type,
 						sort_field:this.sortField
 					})).then((res) => {
+						console.log(res)
 						var list = res.data.data.records;
 						for(var i in list){
 							this.search_data.push(list[i]);

@@ -6,10 +6,10 @@
             <input type="text" disabled placeholder="搜索宝贝、店铺...">
         </div>
         <div class="header_news">
-            <!-- <router-link to="">
+            <router-link to="">
                 <img class="header_news_RichScan" :src="RichScan" alt="扫一扫img">
                 <div class="header_RichScan" id="myBtn" @click="act">扫一扫</div>
-            </router-link> -->
+            </router-link>
             <router-link to = '/myNews' class="trouble">
                 <img class="header_news_advices" :src="advices" alt="消息img">
                 <div class="header_RichScan">消息中心</div>
@@ -68,10 +68,11 @@
             background-size: 100% 100%;
         }
         .header_seek{
-            width: 4rem;
+            width: 3.3rem;
             height: 0.6rem;
+            margin: auto;
             background-color: #E9C440;
-            margin: 0.15rem 0 0 2.1rem;
+            margin-top: 0.15rem;
             border-radius: 0.25rem;
             position: relative;    
         }
@@ -101,7 +102,7 @@
              position: absolute;
              right: 0.1rem;
              top:0.15rem;
-             width: auto;
+             width: 2rem;
              height: 0.62rem; 
            	
          }

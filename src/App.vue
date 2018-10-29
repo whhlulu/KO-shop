@@ -1,20 +1,33 @@
 <template>
   <div>
-    <!-- <keep-alive> -->
-            <!-- <router-view v-if="$route.meta.keepAlive"></router-view> -->
-        <!-- 这里是会被缓存的视图组件 -->  
-        <!-- </keep-alive> -->
-        <router-view></router-view>
+     <transition name="slide">
+	  	<router-view></router-view>
+	</transition>
   </div>
 </template>
 
 <script>
+//	setInterval(function(){
+//        localStorage.clear();
+//   },1440000);
 export default {
-  name: 'app',
-  data() {
-    return {
-      
-    }
-  },
+        name:'searchList',
+        data(){
+            return {
+                
+            }
+        },
+       mounted(){
+       	 
+       },
+        created(){
+//      	this.$router.beforeEach((to, from, next) => {
+//			    console.log(from.name,'上一级');
+//			    next();
+//			});
+        },
+        methods:{
+					
+        }
 }
 </script>

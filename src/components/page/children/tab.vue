@@ -1,6 +1,5 @@
 <template>
     <div class="pr-tab-wrap">
-        <div v-title data-title="商品详情">商品详情</div>
         <pr-header :text="title" :number="number"></pr-header>
         <mt-navbar v-model="selected">
             <mt-tab-item id="1">图文详情</mt-tab-item>
@@ -10,7 +9,7 @@
         </mt-navbar>
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
-               <div v-html="imgText" id="pic_article"></div>
+               <div v-html="imgText"></div>
             </mt-tab-container-item>
             <mt-tab-container-item id="2">
                 <ul class="list-wrap">
@@ -18,7 +17,7 @@
                       	<p class="pTitle">商品名称：</p>
                       	<span>{{attrData.title}}</span>
                     </li>
-                    <li class="clearfix" v-for="item in attrData.attr" :key="item.id">
+                    <li class="clearfix" v-for="item in attrData.attr" :key="item">
                       	<p class="pTitle">{{item.attribute_id}}：</p>
                       	<span>{{item.attr_value}}</span>
                     </li>
@@ -59,14 +58,9 @@
             <mt-tab-container-item id="4">
                <ul class="product">
                    <li v-for ="item in product" :key="item.id">
-                       <div class="use_area_head">
-                        <em>用户g***8的提问：</em>
-                        <span class="fr g_ask_time">{{formatTime(item.create_time)}}</span>
-                       </div>
-                       <p class="pro text1-hidden"><span class="g_icon">问</span> {{item.content}}</p>
-                       <p class="text1-hidden" v-if="item.answer"><span class="g_icon">答</span>{{item.answer}}</p>
-                       <p class="text1-hidden color_grey" v-else><span class="g_icon">答</span> 暂无回答</p>
-                       <div class="g_look_more" v-if="item.answer" @click="lookMore(item.id)">查看全部1个回答</div>
+                       <p class="pro"><span>问</span> {{item.problem}}</p>
+                       <p><span>答</span> {{item.answer}}</p>
+                       <h6>{{item.addtime}}</h6>
                    </li>
                </ul>
                <div class="btm">
@@ -114,29 +108,19 @@
                 specData:'',
                 isChoose:false
             }
-        }, 
+        },
+        filters:{  
+	      formatDate(value) {  
+	        let date = new Date(value);  
+	        let y = date.getFullYear();  
+	        let MM = date.getMonth() + 1;  
+	        MM = MM < 10 ? ('0' + MM) : MM;  
+	        let d = date.getDate();  
+	        d = d < 10 ? ('0' + d) : d;  
+	        return y + '-' + MM + '-' + d ;  
+	      }  
+	    },  
         methods:{
-            lookMore(id){
-                this.$router.push({
-                    name:'answerDetails',
-                    params:{
-                        id:1
-                    }
-                })
-            },
-            formatTime(t){
-                var time = new Date(Number(t) * 1000);
-                var Y = time.getFullYear();
-                var m = time.getMonth() + 1;
-                var d = time.getDate();
-                if (m < 10) {
-                    m = '0' + m;
-                }
-                if (d < 10) {
-                    d = '0' + d;
-                }
-                return (Y + "-" + m + "-" + d);
-            },
             imgScc(){
                 this.isChoose = !this.isChoose  
             },  
@@ -152,7 +136,7 @@
                 }
                 this.axios.post(this.$httpConfig.userCommitProblem,QS.stringify({
                     goods_id:this.$route.params.id,
-                    content:this.problem
+                    problem:this.problem
                 })).then((res) => {
                      Toast({
                         message:res.data.message,
@@ -169,11 +153,14 @@
              // 图文详情请求
             imgTextAjax(){
 //              this.load = true;
-                this.axios.post(this.$httpConfig.getGoodsDetail,
-                   QS.stringify({
-                        goods_id:this.$route.params.p_id,
-                    })
-                ).then((res) => {
+                this.axios({
+                    url:this.$httpConfig.getGoodsDetail,
+                    method:'get',
+                    params:{
+                        goods_id:this.$route.params.id,
+                        page:this.page
+                    }
+                }).then((res) => {
                     this.load = false;
                     if(res.data.status == 1){
                         this.imgText = this.intoHtml(res.data.data)
@@ -274,7 +261,6 @@
                         page:1
                     }
                 }).then((res) => {
-                    this.load = false
                     this.commenData = res.data.data;
 
                 }).catch((err) => {
@@ -325,9 +311,6 @@
         background:#f1f1f1;
         .list-main{
             padding-top:.1rem;
-        }
-        #pic_article  img {
-            width: 100%;
         }
         .mint-tab-item{
             .mint-tab-item-label{
@@ -506,69 +489,32 @@
  <style lang="less" scoped>
      .product{
         margin-top:20/100rem;
-        margin-bottom: 1.2rem;
         li{
             background-color: #fff;
             padding:10/100rem 20/100rem;
-            margin-bottom: .2rem;
-            .use_area_head{
-                margin-bottom: .18rem;
-                height: .7rem;
-                line-height: .7rem;
-                color: #666;
-                font-size: .24rem;
-                em{
-                    font-style: normal;
-                }
-                .g_ask_time{
-                    color:#666;
-                    font-size:.24rem;
-                }
-            }
+            border-bottom:1/100rem solid #F1F1F1;
             .pro{
-                font-weight: 700;
-                margin-bottom:.05rem;
+                font-weight: 500;
                 span{
                     background-color: #CA9B27;
                     
                 }
             }
-            .color_grey{
-                color: #999;
-            }
             p{
-                color: #333;
-                font-size: .32rem;
-                margin-bottom:.1rem;
                 font-size: 32/100rem;
                 line-height: 65/100rem;
             }
-            .g_icon{
+            span{
                 font-size: 28/100rem;
                 padding: 6/100rem;
                 border-radius: 5/100rem;
                 color:#fff;
                 background-color: #97CD93;
             }
-            .g_look_more{
-                font-size:.24rem;
-                color:#3985ff;
+            h6{
+                font-size: 28/100rem;
                 text-align:right;
-            }
-            .g_look_more::after {
-                content: "";
-                display: block;
-                width: 8px;
-                height: 8px;
-                border-top: 1px solid #3985ff;
-                border-left: 1px solid #3985ff;
-                -webkit-transform-origin: 50%;
-                transform-origin: 50%;
-                -webkit-transform: rotate(135deg);
-                transform: rotate(135deg);
-                margin: -2px 0 0 5px;
-                display: inline-block;
-                vertical-align: middle;
+                color: #949494;
             }
         }
         

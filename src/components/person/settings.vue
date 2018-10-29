@@ -29,18 +29,12 @@
                 <div class="icon-btn"></div>
             </dd>
             <dd  class="toPass"></dd>
-            <dd @click="changePassword">
+            <dd @click="toRouter('reset')">
                 	修改密码
                 <div class="icon-btn"></div>
             </dd>
         </dl>
         <div class="footer" @click="signOut">退出当前账户</div>
-        <mt-popup v-model="popupVisible" position="bottom">
-			<ul class="password-wrap">
-				<li v-for="(item,index) in type" :key="item.id" @click="toChange(item.r)">{{item.t}}</li>
-				<li @click="cancel">取消</li>
-			</ul>
-		</mt-popup>
     </div>
 </template>
 <script>
@@ -52,9 +46,7 @@
         data(){
             return {
                 title:'账户设置',
-                data:'',
-                popupVisible:false,
-                type:[{t:'通过旧密码方式',r:'reset'},{t:'通过手机验证方式',r:'phoneVerify'}]
+                data:''
             }
         },
         methods:{
@@ -66,17 +58,6 @@
             toRouter(name){
                  this.$router.push({
                     name:name
-                });
-            },
-            changePassword(){
-                this.popupVisible = true;
-            },
-            cancel(){
-                this.popupVisible = false;
-            },
-            toChange(t){
-                this.$router.push({
-                    name:t
                 });
             },
             toData(){
@@ -203,25 +184,5 @@
     }
     .footer:active{
         box-shadow: 0 -5px 5px #ccc;
-    }
-    .mint-popup {
-    font-size: 0.28rem;
-    background: none;
-  }
-    .password-wrap {
-        width: 7.5rem;
-        text-align: center;
-        li {
-            height: 0.8rem;
-            line-height: 0.8rem;
-            border-top: 1px solid #ccc;
-            box-sizing: border-box;
-            color: #26a2ff;
-            font-size: 0.3rem;
-            background: #fff;
-        }
-        li:nth-child(3) {
-            margin-top: 0.2rem;
-        }
     }
 </style>

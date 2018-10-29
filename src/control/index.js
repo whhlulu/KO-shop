@@ -4,20 +4,9 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = { //创建数据仓库
-    //资讯相关-start
-    //首页
-    KOhome_data: '', //轮播数据来源-移动端网页banner
-    categoryLists:[],
-    homeNewList: [],
-    //列表页相关数据
-    KOlistCurType:'1',
-    //END
-
-
     /*
         数据
     */
-    search_value: '', //搜索内容
     amount: '', //充值金额
     guigeName: [], //所有规格名字
     guigeidname: [], //选中规格名字
@@ -46,7 +35,10 @@ const state = { //创建数据仓库
     dataLeave: '', //猜你喜欢
     select_coupon: [],
     invoice_id: '', //发票id
-    agreenmentName: '', //协议名
+    invoice_package_arr: [], //套餐购买发票id
+    isInvoicePackage: false, //是否套餐购买发票
+    invoicePackageIndex: '', //套餐购买发票第几位
+    agreenmentName:'',//协议名
 
     /*
         状态
@@ -70,9 +62,11 @@ const state = { //创建数据仓库
     rise_id: '', //选中发票抬头id
     content: null, //发票内容状态
     content_id: '', //选中发票内容id
-    type_data: [], //发票类型
-    res_data: [], //发票抬头
-    content_data: [], //发票内容
+    type_data: ['普通发票', '增值发票'], //发票类型
+    res_data: ['个人', '单位'], //发票抬头
+    content_data: ['办公用品', '耗材', '电脑配件', '明细'], //发票内容
+    invoice_switch: [{ invoice_title: '普通发票', invoice_type: '个人', content: '办公用品' }], //发票信息 设置默认为个人
+
 
     /*
         订单

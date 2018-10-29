@@ -110,10 +110,7 @@
 					this.roll_switch = false; //禁止下拉加载
 				}
 				for (let index = 0; index < data.length; index++) {
-					for(var i in data[index].list){
-					this.$store.state.my_wallet.push(data[index].list[i]);
-
-					}
+					this.$store.state.my_wallet.push(data[index]);
 				}
 				this.slide_switch = true;
 			},
@@ -143,7 +140,7 @@
 					} else {
 						this.money = res.data.data.balance;
 						this.headerIMG = res.data.data.header_img;
-						this.stateHandling(res.data.status,res.data.data.balance_detail);
+						this.stateHandling(res.data.status,res.data.data.balance_detail[0].list);
 						Toast({
 							message: res.data.message,
 							position: 'bottom',
